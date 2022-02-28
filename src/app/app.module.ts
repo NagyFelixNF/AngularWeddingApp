@@ -11,20 +11,25 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 import {
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
+  NbIconLibraries,
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
 import { NbAuthJWTToken, NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy } from '@nebular/auth';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    FormsModule,
+    RouterModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -73,4 +78,7 @@ import { NbAuthJWTToken, NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrate
   bootstrap: [AppComponent],
 })
 export class AppModule {
+  constructor(private iconLibraries: NbIconLibraries) {
+    this.iconLibraries.registerFontPack('fa-solid', {packClass: 'fa-solid', iconClassPrefix: 'fa' });
+  }
 }

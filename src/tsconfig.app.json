@@ -1,5 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
+  "importHelpers": true,
+  "compileOnSave": true,
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "baseUrl": "./"

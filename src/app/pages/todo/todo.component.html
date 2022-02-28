@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+  <div class="col-9" >
+    <nb-accordion *ngFor="let todo of todos">
+      <nb-accordion-item>
+        
+        <nb-accordion-item-header>
+          <div class="d-flex flex-row align-items-center" >
+            <div click-stop-propagation><nb-checkbox [checked]=todo.Complated class="d-flex align-items-center"></nb-checkbox></div>
+            <div class="w-100">{{todo.MainTitle}}</div>
+            <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="todo.MainTitle">
+          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}}></nb-icon>
+          </div>
+        </nb-accordion-item-header>
+
+        <nb-accordion-item-body>
+          <nb-card *ngFor="let subtodo of todo.SubTasks">
+
+            <nb-card-body>
+              <div class="d-flex flex-row align-items-center">
+                <div click-stop-propagation><nb-checkbox [checked]=subtodo.SubComplated class="d-flex align-items-center"></nb-checkbox></div>
+                <div>{{subtodo.SubTitle}}</div>
+              </div>
+            </nb-card-body>
+
+          </nb-card>
+        </nb-accordion-item-body>
+
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+</div>

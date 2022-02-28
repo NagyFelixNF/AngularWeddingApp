@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,6 +13,12 @@ const routes: Routes = [{
       path: 'dashboard',
       component: DashboardComponent,
     },
+    {
+      path: 'todo',
+      component: TodoComponent,
+    },
+
+
     {
       path: '',
       redirectTo: 'dashboard',
