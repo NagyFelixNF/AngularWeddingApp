@@ -29,20 +29,20 @@ export class TodoComponent implements OnInit {
     this.todos = 
     [
       {
-        'Id' : "1",
+        'Id' : "2",
         'MainTitle': 'main1',
         'Completed': false,
         'Editing' : false,
         'SubTasks' :
         [
           {
-            'Id' : "1",
+            'Id' : "2",
             'SubTitle': 'sub1',
             'SubCompleted': false,
             'SubEditing' : false,
           },
           {
-            'Id' : "2",
+            'Id' : "1",
             'SubTitle': 'sub2',
             'SubCompleted': false,
             'SubEditing' : false,
@@ -50,7 +50,7 @@ export class TodoComponent implements OnInit {
         ]
       },
       {
-        'Id' : "2",
+        'Id' : "1",
         'MainTitle': 'main1',
         'Completed': false,
         'Editing' : false,
@@ -105,7 +105,7 @@ export class TodoComponent implements OnInit {
 
   RemoveTodo(id:string)
   {
-      console.log("imp");
+    this.todos = this.todos.filter(x => x.Id !== id);
   }
 
   EditSubTodo(id:string)
@@ -120,7 +120,12 @@ export class TodoComponent implements OnInit {
 
   RemoveSubTodo(id:string)
   {
-      console.log("imp");
+    var ids: string[];
+    ids = id.split("&subtodo=");
+    console.log(id);
+    var todo: Todo;
+    todo = this.GetTodoById(ids[0]);
+    todo.SubTasks = todo.SubTasks.filter(x => x.Id !== ids[1]);
   }
 
 
@@ -171,15 +176,47 @@ export class TodoComponent implements OnInit {
 
   AddTodo()
   {
+    var a;
+    if(this.todos.length>0)
+    {
+      a = this.todos[0].Id + 1;
+    }
+    else
+    {
+       a = '1';
+    }
     this.todos.unshift
     (
       {
-        'Id' : this.todos[this.todos.length-1].Id + 1,
+        'Id' : a,
         'MainTitle': 'Title',
         'Completed': false,
         'Editing' : true,
         'SubTasks' :
         [],
+      }
+    );
+  }
+
+  AddSubTodo(todo: Todo)
+  {
+    todo.Completed = false;
+    var a;
+    if(todo.SubTasks.length>0)
+    {
+      a = todo.SubTasks[0].Id + 1;
+    }
+    else
+    {
+       a = '1';
+    }
+    todo.SubTasks.unshift
+    (
+      {
+        'Id' : a,
+        'SubTitle': 'Title',
+        'SubCompleted': false,
+        'SubEditing' : true,
       }
     );
   }

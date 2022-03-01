@@ -20,7 +20,7 @@ nb-checkbox
 }
 .d-flex
 {
-    width: 90%;
+    width: 100%;
 }
 .iconhide
 {
@@ -58,4 +58,13 @@ nb-icon.bigger
 .iconfont2
 {
     --icon-font-size: 1.8rem;
+}
+.width90
+{
+    width: 90%;
+}
+
+nb-icon.bigger2
+{
+    font-size: 1rem;
 }

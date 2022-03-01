@@ -2,8 +2,8 @@
   <div class="col-9">
 
     <nb-card class="w-75 ml-auto mr-auto mb-4">
-      <nb-card-header class="d-flex flex-row align-items-center ">
-        <div>Preparations</div>
+      <nb-card-header class="d-flex flex-row align-items-center">
+        <h2>Preparations</h2>
         <button  nbButton shape="round" class="ml-auto" (click)="AddTodo()"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new</button>
       </nb-card-header>
     </nb-card>
@@ -11,7 +11,7 @@
     <nb-accordion class="accordionborder" *ngFor="let todo of todos">
       <nb-accordion-item>
         <nb-accordion-item-header>
-          <div class="d-flex flex-row align-items-center" >
+          <div class="d-flex flex-row align-items-center width90">
             <div click-stop-propagation><nb-checkbox [checked]="todo.Completed" (checkedChange)="TodoCheckboxChanged($event, todo)" class="d-flex align-items-center maincheckbox"></nb-checkbox></div>
 
             <div *ngIf="!todo.Editing" class="w-100" [class.strike]="todo.Completed" >{{todo.MainTitle}}</div>
@@ -31,6 +31,14 @@
         </nb-accordion-item-header>
 
         <nb-accordion-item-body>
+
+          <nb-card class="w-75 ml-auto mr-auto mb-4">
+            <nb-card-header class="d-flex flex-row align-items-center">
+              <div>Subtasks</div>
+              <button  nbButton shape="round" size="small" class="ml-auto" (click)="AddSubTodo(todo)"><nb-icon class="bigger2 d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new subtask</button>
+            </nb-card-header>
+          </nb-card>
+
           <div  *ngFor="let subtodo of todo.SubTasks">
             <div class="d-flex flex-row align-items-center subhover">
               <nb-card class="w-100 cardborder">
@@ -41,7 +49,7 @@
                       <div *ngIf="!subtodo.SubEditing"  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
 
                       <nb-form-field *ngIf="subtodo.SubEditing" class="w-100 pr-2">
-                        <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="subtodo.SubTitle">
+                        <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="subtodo.SubTitle" autofocus>
                         <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingSubTodo(subtodo)">
                           <nb-icon icon="check"
                               pack="fa-solid"

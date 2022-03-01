@@ -14,7 +14,6 @@ import { TodoModule } from './todo/todo.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    TodoModule,
   ],
   declarations: [
     PagesComponent,
