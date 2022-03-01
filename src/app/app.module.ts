@@ -24,7 +24,7 @@ import {
 } from '@nebular/theme';
 import { NbAuthJWTToken, NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy } from '@nebular/auth';
 import { FormsModule } from '@angular/forms';
-
+import { AutofocusFixModule } from 'ngx-autofocus-fix';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -39,6 +39,7 @@ import { FormsModule } from '@angular/forms';
     NbDatepickerModule.forRoot(),
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
+    AutofocusFixModule.forRoot(),
     NbToastrModule.forRoot(),
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',

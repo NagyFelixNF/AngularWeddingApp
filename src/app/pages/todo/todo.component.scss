@@ -22,10 +22,40 @@ nb-checkbox
 {
     width: 90%;
 }
-.ml-auto
+.iconhide
 {
     visibility: hidden;
 }
 .strike {
     text-decoration: line-through;
+}
+nb-icon.bigger
+{
+    font-size: 1.4rem;
+}
+.maincheckbox
+{
+    --checkbox-height:1.8rem;
+    --checkbox-width:1.8rem;
+}
+.subcheckbox
+{
+    --checkbox-height:1.5rem;
+    --checkbox-width:1.5rem;
+}
+.accordionborder
+{
+    --accordion-border-radius:1.5rem;
+}
+.cardborder
+{
+    --card-border-radius:2rem
+}
+.iconfont
+{
+    --icon-font-size: 1.5rem;
+}
+.iconfont2
+{
+    --icon-font-size: 1.8rem;
 }

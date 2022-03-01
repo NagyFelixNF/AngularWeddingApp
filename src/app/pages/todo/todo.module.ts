@@ -7,6 +7,8 @@ import { DirectivesModule } from 'app/@theme/directives/directive.module';
 import { ThemeModule } from '../../@theme/theme.module';
 import { TodoComponent } from './todo.component';
 
+import { AutofocusFixModule } from 'ngx-autofocus-fix';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -20,6 +22,7 @@ import { TodoComponent } from './todo.component';
     NbInputModule,
     NbButtonModule,
     NbFormFieldModule,
+    AutofocusFixModule,
   ],
   declarations: [
     TodoComponent,

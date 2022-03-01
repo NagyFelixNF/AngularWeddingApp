@@ -1,16 +1,23 @@
 <div class="row justify-content-center">
-  <div class="col-9" >
-    <nb-accordion *ngFor="let todo of todos">
+  <div class="col-9">
+
+    <nb-card class="w-75 ml-auto mr-auto mb-4">
+      <nb-card-header class="d-flex flex-row align-items-center ">
+        <div>Preparations</div>
+        <button  nbButton shape="round" class="ml-auto" (click)="AddTodo()"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new</button>
+      </nb-card-header>
+    </nb-card>
+
+    <nb-accordion class="accordionborder" *ngFor="let todo of todos">
       <nb-accordion-item>
-        
         <nb-accordion-item-header>
           <div class="d-flex flex-row align-items-center" >
-            <div click-stop-propagation><nb-checkbox [checked]="todo.Completed" (checkedChange)="TodoCheckboxChanged($event, todo)" class="d-flex align-items-center"></nb-checkbox></div>
+            <div click-stop-propagation><nb-checkbox [checked]="todo.Completed" (checkedChange)="TodoCheckboxChanged($event, todo)" class="d-flex align-items-center maincheckbox"></nb-checkbox></div>
 
             <div *ngIf="!todo.Editing" class="w-100" [class.strike]="todo.Completed" >{{todo.MainTitle}}</div>
 
-            <nb-form-field *ngIf="todo.Editing" class="w-100 pr-2">
-              <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="todo.MainTitle">
+            <nb-form-field click-stop-propagation *ngIf="todo.Editing" class="w-100 pr-2">
+              <input type="text" autofocus fullWidth nbInput fieldSize="large" [(ngModel)]="todo.MainTitle">
               <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingTodo(todo)">
                 <nb-icon icon="check"
                          pack="fa-solid"
@@ -19,38 +26,40 @@
               </button>
             </nb-form-field>
             
-          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3 pr-1" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}} click-stop-propagation></nb-icon>
+            <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3 pr-1 iconhide iconfont2" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}} click-stop-propagation></nb-icon>
           </div>
         </nb-accordion-item-header>
 
         <nb-accordion-item-body>
           <div  *ngFor="let subtodo of todo.SubTasks">
-          <div class="d-flex flex-row align-items-center subhover">
-          <nb-card class="w-100">
+            <div class="d-flex flex-row align-items-center subhover">
+              <nb-card class="w-100 cardborder">
+                  <nb-card-body>
+                    <div class="d-flex flex-row align-items-center">
+                      <div click-stop-propagation><nb-checkbox [checked]="subtodo.SubCompleted" (checkedChange)="SubTodoCheckboxChanged($event, todo, subtodo)" class="d-flex align-items-center subcheckbox"></nb-checkbox></div>
 
-            <nb-card-body >
-              <div class="d-flex flex-row align-items-center">
-                <div click-stop-propagation><nb-checkbox [checked]="subtodo.SubCompleted" (checkedChange)="SubTodoCheckboxChanged($event, todo, subtodo)" class="d-flex align-items-center"></nb-checkbox></div>
-                <div *ngIf="!subtodo.SubEditing"  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
-                <nb-form-field *ngIf="subtodo.SubEditing" class="w-100 pr-2">
-                  <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="subtodo.SubTitle">
-                  <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingSubTodo(subtodo)">
-                    <nb-icon icon="check"
-                             pack="fa-solid"
+                      <div *ngIf="!subtodo.SubEditing"  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
+
+                      <nb-form-field *ngIf="subtodo.SubEditing" class="w-100 pr-2">
+                        <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="subtodo.SubTitle">
+                        <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingSubTodo(subtodo)">
+                          <nb-icon icon="check"
+                              pack="fa-solid"
                              attr.aria-label="Done">
-                    </nb-icon>
-                  </button>
-                </nb-form-field>
-                
+                          </nb-icon>
+                        </button>
+                      </nb-form-field>
+
+                    </div>
+
+                  </nb-card-body>
+                </nb-card>
+
+                <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3 iconhide iconfont" [nbContextMenu]="subitems" nbContextMenuTrigger="hover" nbContextMenuTag='{{todo.Id}}&subtodo={{subtodo.Id}}' click-stop-propagation></nb-icon>
+              
               </div>
-            </nb-card-body>
-
-          </nb-card>
-          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3" [nbContextMenu]="subitems" nbContextMenuTrigger="hover" nbContextMenuTag='{{todo.Id}}&subtodo={{subtodo.Id}}' click-stop-propagation></nb-icon>
-        </div>
-        </div>
-        </nb-accordion-item-body>
-
+            </div>
+          </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
   </div>

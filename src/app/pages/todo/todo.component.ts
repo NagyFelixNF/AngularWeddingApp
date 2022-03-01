@@ -168,4 +168,19 @@ export class TodoComponent implements OnInit {
       todo.Completed = false;
     }
   }
+
+  AddTodo()
+  {
+    this.todos.unshift
+    (
+      {
+        'Id' : this.todos[this.todos.length-1].Id + 1,
+        'MainTitle': 'Title',
+        'Completed': false,
+        'Editing' : true,
+        'SubTasks' :
+        [],
+      }
+    );
+  }
 }
