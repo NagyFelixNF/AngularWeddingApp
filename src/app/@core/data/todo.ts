@@ -7,7 +7,8 @@ export interface Todo {
 }
 export interface SubTask
 {
+    Id:string;
     SubTitle: string;
-    SubCompleted: boolean,
-    SubEditing: boolean,
+    SubCompleted: boolean;
+    SubEditing: boolean;
 }

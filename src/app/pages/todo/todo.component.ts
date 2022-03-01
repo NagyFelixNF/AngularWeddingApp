@@ -16,6 +16,11 @@ export class TodoComponent implements OnInit {
   { title: 'Edit',icon: { icon: 'pen-to-square',pack:'fa-solid'}, data:1 }, 
   { title: 'Remove',icon: { icon: 'trash',pack:'fa-solid'} ,data:2 },
   ];
+  subitems = 
+  [
+  { title: 'Edit',icon: { icon: 'pen-to-square',pack:'fa-solid'}, data:3 }, 
+  { title: 'Remove',icon: { icon: 'trash',pack:'fa-solid'} ,data:4 },
+  ];
   
   constructor(private nbMenuService: NbMenuService) {
   }
@@ -31,11 +36,13 @@ export class TodoComponent implements OnInit {
         'SubTasks' :
         [
           {
+            'Id' : "1",
             'SubTitle': 'sub1',
             'SubCompleted': false,
             'SubEditing' : false,
           },
           {
+            'Id' : "2",
             'SubTitle': 'sub2',
             'SubCompleted': false,
             'SubEditing' : false,
@@ -63,6 +70,14 @@ export class TodoComponent implements OnInit {
         {
           this.RemoveTodo(menuBag.tag);
         }
+        if(menuBag.item.data == 3)
+        {
+          this.EditSubTodo(menuBag.tag);
+        }
+        if(menuBag.item.data == 4)
+        {
+          this.RemoveSubTodo(menuBag.tag);
+        }
       }
     );
 
@@ -72,6 +87,13 @@ export class TodoComponent implements OnInit {
   GetTodoById(id:string)
   {
     return this.todos.find(x => x.Id === id);
+  }
+
+  GetSubTodoById(id:string,subid:string)
+  {
+    var todo: Todo;
+    todo = this.todos.find(x => x.Id === id);
+    return todo.SubTasks.find(x => x.Id === subid);
   }
 
   EditTodo(id:string)
@@ -86,9 +108,30 @@ export class TodoComponent implements OnInit {
       console.log("imp");
   }
 
+  EditSubTodo(id:string)
+  {
+      var ids: string[];
+      console.log(id);
+      ids = id.split("&subtodo=");
+      var subtodo: SubTask;
+      subtodo = this.GetSubTodoById(ids[0],ids[1]);
+      subtodo.SubEditing = true;
+  }
+
+  RemoveSubTodo(id:string)
+  {
+      console.log("imp");
+  }
+
+
   DoneEditingTodo(todo: Todo)
   {
     todo.Editing = false;
+  }
+
+  DoneEditingSubTodo(todo: SubTask)
+  {
+    todo.SubEditing = false;
   }
 
   TodoCheckboxChanged(event :any,todo: Todo)

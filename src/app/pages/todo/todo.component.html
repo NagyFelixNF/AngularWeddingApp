@@ -31,13 +31,22 @@
             <nb-card-body >
               <div class="d-flex flex-row align-items-center">
                 <div click-stop-propagation><nb-checkbox [checked]="subtodo.SubCompleted" (checkedChange)="SubTodoCheckboxChanged($event, todo, subtodo)" class="d-flex align-items-center"></nb-checkbox></div>
-                <div  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
+                <div *ngIf="!subtodo.SubEditing"  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
+                <nb-form-field *ngIf="subtodo.SubEditing" class="w-100 pr-2">
+                  <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="subtodo.SubTitle">
+                  <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingSubTodo(subtodo)">
+                    <nb-icon icon="check"
+                             pack="fa-solid"
+                             attr.aria-label="Done">
+                    </nb-icon>
+                  </button>
+                </nb-form-field>
                 
               </div>
             </nb-card-body>
 
           </nb-card>
-          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}} click-stop-propagation></nb-icon>
+          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3" [nbContextMenu]="subitems" nbContextMenuTrigger="hover" nbContextMenuTag='{{todo.Id}}&subtodo={{subtodo.Id}}' click-stop-propagation></nb-icon>
         </div>
         </div>
         </nb-accordion-item-body>
