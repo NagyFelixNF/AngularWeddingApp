@@ -1,7 +1,7 @@
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { analyzeAndValidateNgModules, BoundDirectivePropertyAst } from '@angular/compiler';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NbContextMenuDirective, NbMenuBag, NbMenuService } from '@nebular/theme';
-import { Todo } from 'app/@core/data/todo';
+import { SubTask, Todo } from 'app/@core/data/todo';
 import { filter } from 'rxjs-compat/operator/filter';
 
 @Component({
@@ -26,18 +26,18 @@ export class TodoComponent implements OnInit {
       {
         'Id' : "1",
         'MainTitle': 'main1',
-        'Completed': true,
+        'Completed': false,
         'Editing' : false,
         'SubTasks' :
         [
           {
             'SubTitle': 'sub1',
-            'SubComplated': true,
+            'SubCompleted': false,
             'SubEditing' : false,
           },
           {
             'SubTitle': 'sub2',
-            'SubComplated': false,
+            'SubCompleted': false,
             'SubEditing' : false,
           },
         ]
@@ -79,12 +79,50 @@ export class TodoComponent implements OnInit {
       var todo: Todo;
       todo = this.GetTodoById(id);
       todo.Editing = true;
-      console.log(todo.MainTitle);
-      console.log(todo.Editing);
   }
 
   RemoveTodo(id:string)
   {
       console.log("imp");
+  }
+
+  DoneEditingTodo(todo: Todo)
+  {
+    todo.Editing = false;
+  }
+
+  TodoCheckboxChanged(event :any,todo: Todo)
+  {
+    todo.Completed = event;
+    todo.SubTasks.forEach(
+      sub =>
+      {
+        sub.SubCompleted = event;
+      }
+    );
+  }
+
+  SubTodoCheckboxChanged(event :any,todo: Todo, subtodo:SubTask,)
+  {
+    var AllSubDoneFlag: boolean;
+    AllSubDoneFlag = true; 
+    subtodo.SubCompleted = event;
+    todo.SubTasks.forEach(
+      sub =>
+      {
+        if(sub.SubCompleted === false)
+        {
+          AllSubDoneFlag = false;
+          return;
+        }
+      }
+    );
+    if(AllSubDoneFlag){
+    todo.Completed = true;
+    }
+    else
+    {
+      todo.Completed = false;
+    }
   }
 }

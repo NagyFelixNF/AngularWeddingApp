@@ -8,6 +8,6 @@ export interface Todo {
 export interface SubTask
 {
     SubTitle: string;
-    SubComplated: boolean,
+    SubCompleted: boolean,
     SubEditing: boolean,
 }

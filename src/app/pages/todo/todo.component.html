@@ -5,24 +5,41 @@
         
         <nb-accordion-item-header>
           <div class="d-flex flex-row align-items-center" >
-            <div click-stop-propagation><nb-checkbox [checked]=todo.Complated class="d-flex align-items-center"></nb-checkbox></div>
-            <div class="w-100">{{todo.MainTitle}}</div>
-            <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="todo.MainTitle">
-          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}}></nb-icon>
+            <div click-stop-propagation><nb-checkbox [checked]="todo.Completed" (checkedChange)="TodoCheckboxChanged($event, todo)" class="d-flex align-items-center"></nb-checkbox></div>
+
+            <div *ngIf="!todo.Editing" class="w-100" [class.strike]="todo.Completed" >{{todo.MainTitle}}</div>
+
+            <nb-form-field *ngIf="todo.Editing" class="w-100 pr-2">
+              <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="todo.MainTitle">
+              <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingTodo(todo)">
+                <nb-icon icon="check"
+                         pack="fa-solid"
+                         attr.aria-label="Done">
+                </nb-icon>
+              </button>
+            </nb-form-field>
+            
+          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3 pr-1" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}} click-stop-propagation></nb-icon>
           </div>
         </nb-accordion-item-header>
 
         <nb-accordion-item-body>
-          <nb-card *ngFor="let subtodo of todo.SubTasks">
+          <div  *ngFor="let subtodo of todo.SubTasks">
+          <div class="d-flex flex-row align-items-center subhover">
+          <nb-card class="w-100">
 
-            <nb-card-body>
+            <nb-card-body >
               <div class="d-flex flex-row align-items-center">
-                <div click-stop-propagation><nb-checkbox [checked]=subtodo.SubComplated class="d-flex align-items-center"></nb-checkbox></div>
-                <div>{{subtodo.SubTitle}}</div>
+                <div click-stop-propagation><nb-checkbox [checked]="subtodo.SubCompleted" (checkedChange)="SubTodoCheckboxChanged($event, todo, subtodo)" class="d-flex align-items-center"></nb-checkbox></div>
+                <div  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
+                
               </div>
             </nb-card-body>
 
           </nb-card>
+          <nb-icon icon="ellipsis-vertical" pack="fa-solid" class="ml-auto pl-3" [nbContextMenu]="items" nbContextMenuTrigger="hover" nbContextMenuTag={{todo.Id}} click-stop-propagation></nb-icon>
+        </div>
+        </div>
         </nb-accordion-item-body>
 
       </nb-accordion-item>
