@@ -8,6 +8,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { TodoComponent } from './todo.component';
 
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { AutofocusFixModule } from 'ngx-autofocus-fix';
     NbButtonModule,
     NbFormFieldModule,
     AutofocusFixModule,
+    BrowserAnimationsModule,
   ],
   declarations: [
     TodoComponent,

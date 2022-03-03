@@ -3,6 +3,8 @@
   "importHelpers": true,
   "compileOnSave": true,
   "compilerOptions": {
+    "importHelpers": true,
+    "experimentalDecorators": true, 
     "outDir": "../out-tsc/app",
     "baseUrl": "./"
   },
@@ -13,6 +15,7 @@
   ],
   "include": [
     "../src/*.ts",
+    "../src/*.service.ts",
     "../node_modules/@nebular/**/*.ts"
   ]
 }

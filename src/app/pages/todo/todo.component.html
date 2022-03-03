@@ -1,24 +1,24 @@
 <div class="row justify-content-center">
   <div class="col-9">
 
-    <nb-card class="w-75 ml-auto mr-auto mb-4">
+    <nb-card class="w-75 ml-auto mr-auto mb-4 ">
       <nb-card-header class="d-flex flex-row align-items-center">
         <h2>Preparations</h2>
-        <button  nbButton shape="round" class="ml-auto" (click)="AddTodo()"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new</button>
+        <button  nbButton shape="round" class="ml-auto " (click)="TodoService.AddTodo()"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new</button>
       </nb-card-header>
     </nb-card>
 
-    <nb-accordion class="accordionborder" *ngFor="let todo of todos">
-      <nb-accordion-item>
-        <nb-accordion-item-header>
+    <nb-accordion class="accordionborder" *ngFor="let todo of todos" @fade1>
+      <nb-accordion-item >
+        <nb-accordion-item-header >
           <div class="d-flex flex-row align-items-center width90">
-            <div click-stop-propagation><nb-checkbox [checked]="todo.Completed" (checkedChange)="TodoCheckboxChanged($event, todo)" class="d-flex align-items-center maincheckbox"></nb-checkbox></div>
+            <div click-stop-propagation><nb-checkbox [checked]="todo.Completed" (checkedChange)="TodoService.TodoCheckboxChanged($event, todo)" class="d-flex align-items-center maincheckbox"></nb-checkbox></div>
 
             <div *ngIf="!todo.Editing" class="w-100" [class.strike]="todo.Completed" >{{todo.MainTitle}}</div>
 
             <nb-form-field click-stop-propagation *ngIf="todo.Editing" class="w-100 pr-2">
               <input type="text" autofocus fullWidth nbInput fieldSize="large" [(ngModel)]="todo.MainTitle">
-              <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingTodo(todo)">
+              <button nbSuffix nbButton ghost click-stop-propagation (click)="TodoService.DoneEditingTodo(todo)">
                 <nb-icon icon="check"
                          pack="fa-solid"
                          attr.aria-label="Done">
@@ -30,12 +30,12 @@
           </div>
         </nb-accordion-item-header>
 
-        <nb-accordion-item-body>
+        <nb-accordion-item-body class="hide">
 
           <nb-card class="w-75 ml-auto mr-auto mb-4">
             <nb-card-header class="d-flex flex-row align-items-center">
               <div>Subtasks</div>
-              <button  nbButton shape="round" size="small" class="ml-auto" (click)="AddSubTodo(todo)"><nb-icon class="bigger2 d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new subtask</button>
+              <button  nbButton shape="round" size="small" class="ml-auto" (click)="TodoService.AddSubTodo(todo)"><nb-icon class="bigger2 d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new subtask</button>
             </nb-card-header>
           </nb-card>
 
@@ -44,13 +44,13 @@
               <nb-card class="w-100 cardborder">
                   <nb-card-body>
                     <div class="d-flex flex-row align-items-center">
-                      <div click-stop-propagation><nb-checkbox [checked]="subtodo.SubCompleted" (checkedChange)="SubTodoCheckboxChanged($event, todo, subtodo)" class="d-flex align-items-center subcheckbox"></nb-checkbox></div>
+                      <div click-stop-propagation><nb-checkbox [checked]="subtodo.SubCompleted" (checkedChange)="TodoService.SubTodoCheckboxChanged($event, todo, subtodo)" class="d-flex align-items-center subcheckbox"></nb-checkbox></div>
 
                       <div *ngIf="!subtodo.SubEditing"  [class.strike]="subtodo.SubCompleted">{{subtodo.SubTitle}}</div>
 
                       <nb-form-field *ngIf="subtodo.SubEditing" class="w-100 pr-2">
                         <input type="text" fullWidth nbInput fieldSize="large" [(ngModel)]="subtodo.SubTitle" autofocus>
-                        <button nbSuffix nbButton ghost click-stop-propagation (click)="DoneEditingSubTodo(subtodo)">
+                        <button nbSuffix nbButton ghost click-stop-propagation (click)="TodoService.DoneEditingSubTodo(subtodo)">
                           <nb-icon icon="check"
                               pack="fa-solid"
                              attr.aria-label="Done">
