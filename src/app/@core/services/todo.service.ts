@@ -1,8 +1,11 @@
+import { P } from '@angular/cdk/keycodes';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { NbTokenService } from '@nebular/auth';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { SubTask, Todo } from '../data/todo';
 
 @Injectable({
@@ -12,120 +15,99 @@ export class TodoService {
   todos: Todo[];
   token : any;
 
-  constructor(private TokenService: NbTokenService) {
+  
 
-    this.todos = 
-    [
-      {
-        'Id' : "2",
-        'MainTitle': 'main1',
-        'Completed': false,
-        'Editing' : false,
-        'SubTasks' :
-        [
-          {
-            'Id' : "2",
-            'SubTitle': 'sub1',
-            'SubCompleted': false,
-            'SubEditing' : false,
-          },
-          {
-            'Id' : "1",
-            'SubTitle': 'sub2',
-            'SubCompleted': false,
-            'SubEditing' : false,
-          },
-        ]
-      },
-      {
-        'Id' : "1",
-        'MainTitle': 'main1',
-        'Completed': false,
-        'Editing' : false,
-        'SubTasks' :
-        []
-      },
-    ]
+  url = "https://localhost:5001/api/preparation/"
 
-   }
+  constructor(private TokenService: NbTokenService, private http: HttpClient) {
+
+  }
+
+  getToken()
+  {
+    var token;
+    this.TokenService.get().subscribe(
+      x => token = x.getValue()
+    )
+    return token;
+  }
+
+  GetHeader()
+  {
+    console.log("header");
+    return  {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Bearer ${this.getToken()}`)
+    }
+    
+  }
 
   getTodos() : Observable<Todo[]>
   {
-    this.TokenService.get().subscribe(
-      x => this.token = x.getValue()
-    )
-    console.log(this.token);
-    const todoar = of(this.todos);
-    return todoar;
+
+    return this.http.get<Todo[]>(this.url,this.GetHeader()).pipe();
   }
 
-  AddTodo()
+  AddTodo() : Observable<Todo>
   {
-    var a;
-    if(this.todos.length>0)
-    {
-      a = this.todos[0].Id + 1;
-    }
-    else
-    {
-       a = '1';
-    }
-    this.todos.unshift
+    var todosample =
     (
       {
-        'Id' : a,
-        'MainTitle': 'Title',
-        'Completed': false,
-        'Editing' : true,
-        'SubTasks' :
+        'title': 'Title',
+        'completed': false,
+        'subPreparations' :
         [],
       }
     );
+    return this.http.post<Todo>(this.url,todosample,this.GetHeader()).pipe();
   }
 
   AddSubTodo(todo: Todo)
   {
-    todo.Completed = false;
-    var a;
-    if(todo.SubTasks.length>0)
-    {
-      a = todo.SubTasks[0].Id + 1;
+    if(todo.completed == true){
+    todo.completed = false;
+    this.http.patch(this.url+todo.id,todo,this.GetHeader()).subscribe();
     }
-    else
-    {
-       a = '1';
-    }
-    todo.SubTasks.unshift
+    var todosample =
     (
       {
-        'Id' : a,
-        'SubTitle': 'Title',
-        'SubCompleted': false,
-        'SubEditing' : true,
+        'title': 'Title',
+        'completed': false,
+        'subPreparations' :
+        [],
       }
     );
+    this.http.post<SubTask>(this.url+"sub/"+todo.id,todosample,this.GetHeader()).subscribe(x =>{
+      console.log(x);
+      x.subEditing = true;
+      todo.subPreparations.unshift(x);
+    })
   }
 
   DoneEditingTodo(todo: Todo)
   {
-    console.log(todo.MainTitle);
-    todo.Editing = false;
+    console.log(todo.title);
+    this.http.patch(this.url+todo.id,todo,this.GetHeader()).subscribe();
+    todo.editing = false;
   }
 
   DoneEditingSubTodo(todo: SubTask)
   {
-    todo.SubEditing = false;
+    console.log(todo.title);
+    this.http.patch(this.url+"sub/"+todo.id,todo,this.GetHeader()).subscribe();
+    todo.subEditing = false;
   }
 
   SubTodoCheckboxChanged(event :any,todo: Todo, subtodo:SubTask,)
   {
     var AllSubDoneFlag: boolean;
     AllSubDoneFlag = true; 
-    subtodo.SubCompleted = event;
-    todo.SubTasks.forEach(
+    subtodo.completed = event;
+    this.http.patch(this.url+"sub/"+subtodo.id,subtodo,this.GetHeader()).subscribe();
+    todo.subPreparations.forEach(
       sub =>
       {
-        if(sub.SubCompleted === false)
+        if(sub.completed === false)
         {
           AllSubDoneFlag = false;
           return;
@@ -133,36 +115,47 @@ export class TodoService {
       }
     );
     if(AllSubDoneFlag){
-    todo.Completed = true;
+      if(todo.completed != true){
+        todo.completed = true;
+        this.http.patch(this.url+todo.id,todo,this.GetHeader()
+  ).subscribe();
+      }
     }
     else
     {
-      todo.Completed = false;
+      if(todo.completed != false){
+        todo.completed = false;
+        this.http.patch(this.url+todo.id,todo,this.GetHeader()
+  ).subscribe();
+      }
     }
   }
 
   TodoCheckboxChanged(event :any,todo: Todo)
   {
-    todo.Completed = event;
-    todo.SubTasks.forEach(
+    //i could optimaze this on server side?
+    todo.completed = event;
+    this.http.patch(this.url+todo.id,todo,this.GetHeader()).subscribe();
+    todo.subPreparations.forEach(
       sub =>
       {
-        sub.SubCompleted = event;
+        sub.completed = event;
+        this.http.patch(this.url+"sub/"+sub.id,sub,this.GetHeader()
+  ).subscribe();
       }
     );
   }
 
-  RemoveTodo(todo:Todo)
+  RemoveTodo(id:string)
   {
-    var index = this.todos.indexOf(todo);
-    if(index !== -1) {
-      this.todos.splice(index, 1);
-    }
+    console.log("rtdo")
+    this.http.delete(this.url+id,this.GetHeader()).subscribe();
   }
 
 
-  RemoveSubTodo(todo: Todo,id:string)
+  RemoveSubTodo(id:string)
   {
-    todo.SubTasks = todo.SubTasks.filter(x => x.Id !== id);
+    console.log("subtdo")
+    this.http.delete(this.url+"sub/"+id,this.GetHeader()).subscribe();
   }
 }

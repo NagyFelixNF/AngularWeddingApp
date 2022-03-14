@@ -21,6 +21,6 @@ export class NgxLogoutComponent extends NbLogoutComponent {
         
     logout(strategy: string){
         super.logout(strategy);
-        this.nbTokenService.clear()
+        this.nbTokenService.clear();
     }
 }

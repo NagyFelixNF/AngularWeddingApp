@@ -1,14 +1,14 @@
 export interface Todo {
-    Id: string;
-    MainTitle: string;
-    Completed: boolean;
-    Editing: boolean;
-    SubTasks: SubTask[];
+    id: string;
+    title: string;
+    completed: boolean;
+    editing: boolean;
+    subPreparations: SubTask[];
 }
 export interface SubTask
 {
-    Id:string;
-    SubTitle: string;
-    SubCompleted: boolean;
-    SubEditing: boolean;
+    id:string;
+    title: string;
+    completed: boolean;
+    subEditing: boolean;
 }

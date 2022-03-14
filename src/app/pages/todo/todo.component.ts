@@ -79,28 +79,35 @@ export class TodoComponent implements OnInit {
 
   GetTodoById(id:string)
   {
-    return this.todos.find(x => x.Id === id);
+    return this.todos.find(x => x.id === id);
   }
 
   GetSubTodoById(id:string,subid:string)
   {
     var todo: Todo;
-    todo = this.todos.find(x => x.Id === id);
-    return todo.SubTasks.find(x => x.Id === subid);
+    todo = this.todos.find(x => x.id === id);
+    console.log(todo.subPreparations);
+    return todo.subPreparations.find(x => x.id == subid);
   }
 
   EditTodo(id:string)
   {
+      console.log(this.todos[0].title);
       var todo: Todo;
       todo = this.GetTodoById(id);
-      todo.Editing = true;
+      todo.editing = true;
   }
 
   RemoveTodo(id:string)
   {
     var todo: Todo;
     todo = this.GetTodoById(id);
-    this.TodoService.RemoveTodo(todo);
+    this.TodoService.RemoveTodo(id);
+    console.log("főcal");
+    var index = this.todos.indexOf(todo);
+    if(index !== -1) {
+      this.todos.splice(index, 1);
+    }
   }
 
   EditSubTodo(id:string)
@@ -110,17 +117,32 @@ export class TodoComponent implements OnInit {
       ids = id.split("&subtodo=");
       var subtodo: SubTask;
       subtodo = this.GetSubTodoById(ids[0],ids[1]);
-      subtodo.SubEditing = true;
+      subtodo.subEditing = true;
   }
 
   RemoveSubTodo(id:string)
   {
     var ids: string[];
     ids = id.split("&subtodo=");
-    var todo: Todo;
-    todo = this.GetTodoById(ids[0]);
-    this.TodoService.RemoveSubTodo(todo,ids[1]);
+    var todo: SubTask;
+    todo = this.GetSubTodoById(ids[0],ids[1]);
+    var main : Todo;
+    main = this.GetTodoById(ids[0]);
+    this.TodoService.RemoveSubTodo(ids[1]);
+    var index = main.subPreparations.indexOf(todo);
+    if(index != -1) {
+      main.subPreparations.splice(index, 1);
+    }
   }
+
+  AddTodo()
+  {
+    this.TodoService.AddTodo().subscribe(todo => {
+      todo.editing = true
+      this.todos.unshift(todo)
+    });
+  }
+  
 
 
   
