@@ -8,6 +8,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoModule } from './todo/todo.module';
 import { BudgetComponent } from './budget/budget.component';
+import { BudgetModule } from './budget/budget.module';
 
 @NgModule({
   imports: [
