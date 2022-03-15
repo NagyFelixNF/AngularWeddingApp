@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoComponent } from './todo/todo.component';
+import { BudgetComponent } from './budget/budget.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,10 @@ const routes: Routes = [{
     {
       path: 'todo',
       component: TodoComponent,
+    },
+    {
+      path: 'budget',
+      component: BudgetComponent
     },
 
 

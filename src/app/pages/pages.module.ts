@@ -7,6 +7,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoModule } from './todo/todo.module';
+import { BudgetComponent } from './budget/budget.component';
 
 @NgModule({
   imports: [

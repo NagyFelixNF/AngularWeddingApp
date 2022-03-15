@@ -17,4 +17,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'list-check',pack:'fa-solid'},
     link: '/pages/todo',
   },
+  {
+    title: 'Budget',
+    icon: { icon: 'money-check-dollar',pack:'fa-solid'},
+    link: '/pages/budget',
+  },
 ];
