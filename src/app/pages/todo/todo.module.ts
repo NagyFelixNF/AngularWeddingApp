@@ -9,6 +9,7 @@ import { TodoComponent } from './todo.component';
 
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [

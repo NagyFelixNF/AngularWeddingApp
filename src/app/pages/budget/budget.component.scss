@@ -1,0 +1,54 @@
+.setbudgetfont
+{
+    font-size: 30px;
+    font-weight: 200;
+    --input-small-text-font-size: 30px;
+    --input-small-text-font-weight: 200;
+    --input-small-max-width: 30rem;
+}
+.budget
+{
+    padding-right: 0.5rem;
+    color:	#3366ff
+}
+.budget:hover
+{
+    border: 1px solid;
+    border-color: rgb(209, 214, 219);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none; 
+}
+.cardheight
+{
+    height:60px
+}
+.inputf
+{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+}
+.inputf:hover
+{
+    background: #f0f0f0;
+    border-bottom: 1px solid #3366ff;
+}
+.iprice
+{
+    min-width: 120px;
+    width: 120px;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+.iconhide
+{
+    visibility: hidden;
+}
+.inputrow:hover .iconhide
+{
+    visibility: visible;
+}
