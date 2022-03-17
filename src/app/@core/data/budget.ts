@@ -7,6 +7,7 @@ export interface Category
 {
     id:string;
     title: string;
+    total: number;
     spendings: Spending[];
 
 }

@@ -5,36 +5,58 @@
         <nb-card-header class="d-flex flex-row align-items-center setbudgetfont cardheight">
 
             <span>Set your budget:&nbsp;</span><span *ngIf="!SetBudget" (click)="BudgetOnClick()" class="budget" >{{Budget.budget}}</span>
-            <input type="number" [ngStyle]="{'width.px': width}" *ngIf="SetBudget" (blur)="BudgetOnBlur()" nbInput [(ngModel)]="Budget.budget" (input)="resize()" fieldSize="small">
+            <input type="number" [ngStyle]="{'width.px': width}" *ngIf="SetBudget" (blur)="BudgetOnBlur()"  nbInput [(ngModel)]="Budget.budget" (input)="resize()" fieldSize="small" autofocus>
 
             <span> Ft</span>
-
+            <button  nbButton shape="round" class="ml-auto" (click)="AddNewCategory()"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid" ></nb-icon>Add new</button>
         </nb-card-header>
       </nb-card>
 
       <nb-accordion *ngFor="let category of Budget.categories">
         <nb-accordion-item >
-          <nb-accordion-item-header>
-            {{category.title}}
+          <nb-accordion-item-header class="test">
+            <input class="categoryinput" value="{{category.title}}" click-stop-propagation>
           </nb-accordion-item-header>
           <nb-accordion-item-body>
             <div class="d-flex titlerow">
               <div class="w-100 title">Title</div>
-              <div class="price pr-4">Price</div>
+              <div class="price matchwidth">Price</div>
             </div>
-            <div class="d-flex inputrow pt-4">
+            <div class="d-flex inputrow pt-4" *ngFor="let spendings of category.spendings">
               <input class="inputf w-100 title mr-4">
               <div class="d-flex inputf">
-                <input class="iprice">
+                <input class="iprice" type="number" placeholder="0" [(ngModel)]="spendings.cost" (keyup)="Spendingupdate(category)">
                 <span>Ft</span>
               </div>
-              <nb-icon icon="trash-can" pack="fa-solid" class="pl-2 iconhide"></nb-icon>
+              <nb-icon icon="trash-can" pack="fa-solid" class="pl-2 iconhide" (click)="DeleteSpending(category,spendings)"></nb-icon>
+            </div>
+            <div class="d-flex pt-4">
+              <div class="w-100"><button size="small" nbButton shape="round" (click)="AddNewSpending(category)"><nb-icon class="bigger2 d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add new item</button></div>
+              <div class="matchwidth">{{category.total}} Ft</div>
             </div>
           </nb-accordion-item-body>
         </nb-accordion-item>
-      
       </nb-accordion>
-      
+
+      <nb-card class="ml-auto mr-auto mt-4 ">
+        <nb-card-header class="d-block">
+          <div class="d-flex flex-row justify-content-end align-items-end">
+            <div>
+              Spendings:
+              <br>
+              <span>{{TotalSpendings}} Ft</span>
+            </div>
+          </div>
+          <div class="d-flex flex-row justify-content-end align-items-end">
+            <div class="rebudget">
+              Remaining budget:
+              <br>
+              <span>{{Total}} Ft</span>
+            </div>
+          </div>
+        </nb-card-header>
+      </nb-card>
+
     </div>
 </div>
 <span #hiddenText class="setbudgetfont" style="visibility: hidden; white-space: pre;">{{Budget.budget}}</span>

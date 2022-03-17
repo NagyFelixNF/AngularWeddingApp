@@ -17,11 +17,13 @@ export class BudgetService {
         {
           'id': '1',
           'title': 'category',
+          'total': 0,
           'spendings': []
         },
         {
           'id': '2',
           'title': 'category',
+          'total': 0,
           'spendings': []
         },
       ]

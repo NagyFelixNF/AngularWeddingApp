@@ -52,3 +52,34 @@ input::-webkit-inner-spin-button {
 {
     visibility: visible;
 }
+nb-icon.bigger
+{
+    font-size: 1.4rem;
+}
+nb-icon.bigger2
+{
+    font-size: 1rem;
+}
+.matchwidth
+{
+    min-width: 151px;
+    width: 151px;
+}
+.rebudget
+{
+    border-top: 1px solid #000000;
+    padding-top: 0.2rem;
+    font-size: 20px;
+    font-weight: 200;
+    margin-top: 1rem;
+}
+.categoryinput
+{
+    font-size: 15px;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    height: fit-content;
+    outline: none;
+    line-height:normal ;
+}
