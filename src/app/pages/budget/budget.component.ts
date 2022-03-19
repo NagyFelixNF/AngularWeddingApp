@@ -25,7 +25,8 @@ export class BudgetComponent implements OnInit {
 
   constructor(public BudgetService:BudgetService){
     this.searchde = debounce(this.searchde, 500)
-  }
+    this.updateCategory = debounce(this.updateCategory, 600)
+    }
 
   ngOnInit(): void {
     this.GetBudget();
@@ -106,6 +107,7 @@ export class BudgetComponent implements OnInit {
     category.total = newsum;
     this.RecalcTotal();
   }
+
   RecalcTotal()
   {
     var newsum = 0;
@@ -115,10 +117,17 @@ export class BudgetComponent implements OnInit {
     this.TotalSpendings = newsum;
     this.Total = this.Budget.budget - this.TotalSpendings;
   }
+
   DeleteSpending(category:Category,spending:Spending)
   {
     var index = category.spendings.indexOf(spending);
     category.spendings.splice(index,1);
     this.Spendingupdate(category)
+  }
+
+  updateCategory(event:any, category:Category)
+  {
+    category.title = event.target.value
+    this.BudgetService.updateCategory(category);
   }
 }

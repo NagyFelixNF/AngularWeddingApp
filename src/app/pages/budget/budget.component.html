@@ -14,7 +14,7 @@
       <nb-accordion *ngFor="let category of Budget?.categories">
         <nb-accordion-item >
           <nb-accordion-item-header class="test">
-            <input class="categoryinput" value="{{category.title}}" click-stop-propagation>
+            <input class="categoryinput" value="{{category.title}}" click-stop-propagation (keyup)="updateCategory($event,category)">
           </nb-accordion-item-header>
           <nb-accordion-item-body>
             <div class="d-flex titlerow">

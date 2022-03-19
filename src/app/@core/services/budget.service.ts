@@ -55,7 +55,7 @@ export class BudgetService {
     'total': 0,
     'spendings': []
     };
-    return this.http.post<Category>(this.url + id,newCategory,this.GetHeader()).pipe();
+    return this.http.post<Category>(this.url + "category/" + id,newCategory,this.GetHeader()).pipe();
   }
 
   AddSpending(id:string): Observable<Spending>
@@ -71,5 +71,10 @@ export class BudgetService {
   UpdateBudge(Budget: Budget): void
   {
     this.http.patch(this.url+Budget.id,Budget,this.GetHeader()).subscribe();
+  }
+
+  updateCategory(category:Category)
+  {
+    this.http.patch<Category>(this.url + "category/" + category.id,category,this.GetHeader()).subscribe();
   }
 }
