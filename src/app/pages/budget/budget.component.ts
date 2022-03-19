@@ -19,9 +19,9 @@ export class BudgetComponent implements OnInit {
   minWidth: number = 60;
   width: number = this.minWidth;
 
-  Budget: Budget
-  TotalSpendings: number
-  Total: number
+  Budget: Budget;
+  TotalSpendings: number;
+  Total: number;
 
   constructor(public BudgetService:BudgetService){
     this.searchde = debounce(this.searchde, 500)
@@ -36,7 +36,8 @@ export class BudgetComponent implements OnInit {
     this.SetBudget = true;
     this.resize();
   }
-  BudgetOnBlur(): void
+
+  BudgetOnBlur(budget:Budget): void
   {
     this.SetBudget = false;
     if(this.Budget.budget == null)
@@ -44,6 +45,12 @@ export class BudgetComponent implements OnInit {
       this.Budget.budget = 1000
     }
     this.RecalcTotal();
+    this.UpdateBudget(budget);
+  }
+
+  UpdateBudget(Budget:Budget)
+  {
+    this.BudgetService.UpdateBudge(Budget);
   }
 
   resize() {
@@ -61,38 +68,33 @@ export class BudgetComponent implements OnInit {
     console.log("deb "+ str);
   }
 
-  AddNewCategory()
+  AddNewCategory(Buget:Budget)
   {
-    this.Budget.categories.push({
-      'id': '2',
-      'title': 'category',
-      'total': 0,
-      'spendings': []
-    },);
+    this.BudgetService.AddCategory(this.Budget.id).subscribe(category=> this.Budget.categories.push(category));
   }
 
   AddNewSpending(category: Category)
   {
-    category.spendings.push({
-      'id':"0",
-      'cost':null,
-      'title':""
-    });
+    this.BudgetService.AddSpending(category.id).subscribe(spending => category.spendings.push(spending));
   }
 
   GetBudget()
   {
-    this.BudgetService.GetBudget().subscribe(budget => this.Budget = budget);
-    this.TotalSpendings = 0;
-    this.Budget.categories.forEach(element => {
-      var sum =0;
-      element.spendings.forEach(element => {
-        sum = sum + element.cost
+    this.BudgetService.GetBudget().subscribe(budget =>{ (this.Budget = budget)
+      this.TotalSpendings = 0;
+      this.Total = 0;
+      if(this.Budget.categories != null){
+      this.Budget.categories.forEach(element => {
+        var sum =0;
+        element.spendings.forEach(element => {
+          sum = sum + element.cost
+        });
+        element.total = sum;
+        this.TotalSpendings = this.TotalSpendings + sum;
       });
-      element.total = sum;
-      this.TotalSpendings = this.TotalSpendings + sum;
+      this.Total = this.Budget.budget - this.TotalSpendings;
+    }
     });
-    this.Total = this.Budget.budget - this.TotalSpendings;
   }
 
   Spendingupdate(category:Category)

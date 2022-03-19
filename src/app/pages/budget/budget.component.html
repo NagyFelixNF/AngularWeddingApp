@@ -4,15 +4,14 @@
     <nb-card class="ml-auto mr-auto mb-4 ">
         <nb-card-header class="d-flex flex-row align-items-center setbudgetfont cardheight">
 
-            <span>Set your budget:&nbsp;</span><span *ngIf="!SetBudget" (click)="BudgetOnClick()" class="budget" >{{Budget.budget}}</span>
-            <input type="number" [ngStyle]="{'width.px': width}" *ngIf="SetBudget" (blur)="BudgetOnBlur()"  nbInput [(ngModel)]="Budget.budget" (input)="resize()" fieldSize="small" autofocus>
+            <span>Set your budget:&nbsp;</span><span *ngIf="!SetBudget" (click)="BudgetOnClick()" class="budget" >{{Budget?.budget}}</span>
+            <input type="number" [ngStyle]="{'width.px': width}" *ngIf="SetBudget" (blur)="BudgetOnBlur(Budget)"  nbInput [(ngModel)]="Budget.budget" (input)="resize()" fieldSize="small" autofocus>
 
             <span> Ft</span>
-            <button  nbButton shape="round" class="ml-auto" (click)="AddNewCategory()"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid" ></nb-icon>Add new</button>
+            <button  nbButton shape="round" class="ml-auto" (click)="AddNewCategory(Budget)"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid" ></nb-icon>Add new</button>
         </nb-card-header>
       </nb-card>
-
-      <nb-accordion *ngFor="let category of Budget.categories">
+      <nb-accordion *ngFor="let category of Budget?.categories">
         <nb-accordion-item >
           <nb-accordion-item-header class="test">
             <input class="categoryinput" value="{{category.title}}" click-stop-propagation>
@@ -59,4 +58,4 @@
 
     </div>
 </div>
-<span #hiddenText class="setbudgetfont" style="visibility: hidden; white-space: pre;">{{Budget.budget}}</span>
+<span #hiddenText class="setbudgetfont" style="visibility: hidden; white-space: pre;">{{Budget?.budget}}</span>
