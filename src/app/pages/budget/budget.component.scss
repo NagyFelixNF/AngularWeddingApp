@@ -52,6 +52,14 @@ input::-webkit-inner-spin-button {
 {
     visibility: visible;
 }
+.iconhide1
+{
+    visibility: hidden;
+}
+.iconshow:hover .iconhide1
+{
+    visibility: visible;
+}
 nb-icon.bigger
 {
     font-size: 1.4rem;

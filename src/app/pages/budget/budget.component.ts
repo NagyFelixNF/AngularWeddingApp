@@ -26,6 +26,8 @@ export class BudgetComponent implements OnInit {
   constructor(public BudgetService:BudgetService){
     this.searchde = debounce(this.searchde, 500)
     this.updateCategory = debounce(this.updateCategory, 600)
+    this.updateSpending = debounce(this.updateSpending, 600)
+    this.updateSpendingTitle = debounce(this.updateSpendingTitle, 600)
     }
 
   ngOnInit(): void {
@@ -102,7 +104,9 @@ export class BudgetComponent implements OnInit {
   {
     var newsum = 0;
     category.spendings.forEach(element => {
+      if(element.cost != null){
       newsum = newsum + element.cost
+      }
     });
     category.total = newsum;
     this.RecalcTotal();
@@ -112,7 +116,9 @@ export class BudgetComponent implements OnInit {
   {
     var newsum = 0;
     this.Budget.categories.forEach(element => {
+      if(element.total != null){
       newsum = newsum + element.total;
+      }
     });
     this.TotalSpendings = newsum;
     this.Total = this.Budget.budget - this.TotalSpendings;
@@ -122,12 +128,43 @@ export class BudgetComponent implements OnInit {
   {
     var index = category.spendings.indexOf(spending);
     category.spendings.splice(index,1);
-    this.Spendingupdate(category)
+    this.BudgetService.deleteSpending(spending);
+    this.Spendingupdate(category);
+  }
+
+  DeleteCategory(category:Category)
+  {
+    var index = this.Budget.categories.indexOf(category);
+    this.Budget.categories.splice(index,1);
+    this.BudgetService.deleteCategory(category);
+    this.RecalcTotal();
   }
 
   updateCategory(event:any, category:Category)
   {
     category.title = event.target.value
     this.BudgetService.updateCategory(category);
+  }
+
+  updateSpendingTitle(evet:any, spending:Spending)
+  {
+    spending.title = evet.target.value
+    this.BudgetService.updateSpending(spending);
+  }
+
+  updateSpendingCost(evet:any, spending:Spending, category:Category)
+  {
+    spending.cost = parseInt(evet.target.value)
+    if(isNaN(spending.cost))
+    {
+      spending.cost = null;
+    }
+    this.Spendingupdate(category);
+    this.updateSpending(spending);
+  }
+
+  updateSpending(spending:Spending)
+  {
+    this.BudgetService.updateSpending(spending);
   }
 }

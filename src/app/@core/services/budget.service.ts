@@ -77,4 +77,19 @@ export class BudgetService {
   {
     this.http.patch<Category>(this.url + "category/" + category.id,category,this.GetHeader()).subscribe();
   }
+
+  updateSpending(spending:Spending)
+  {
+    this.http.patch<Category>(this.url + "spending/" + spending.id,spending,this.GetHeader()).subscribe();
+  }
+
+  deleteSpending(spending:Spending)
+  {
+    this.http.delete(this.url + "spending/" + spending.id, this.GetHeader()).subscribe();
+  }
+
+  deleteCategory(category:Category)
+  {
+    this.http.delete(this.url + "category/" + category.id, this.GetHeader()).subscribe();
+  }
 }

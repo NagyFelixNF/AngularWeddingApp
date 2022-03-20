@@ -11,10 +11,11 @@
             <button  nbButton shape="round" class="ml-auto" (click)="AddNewCategory(Budget)"><nb-icon class="bigger d-flex flex-row align-items-center" icon="plus" pack="fa-solid" ></nb-icon>Add new</button>
         </nb-card-header>
       </nb-card>
-      <nb-accordion *ngFor="let category of Budget?.categories">
-        <nb-accordion-item >
+      <nb-accordion multi>
+        <nb-accordion-item  class="iconshow"  *ngFor="let category of Budget?.categories">
           <nb-accordion-item-header class="test">
-            <input class="categoryinput" value="{{category.title}}" click-stop-propagation (keyup)="updateCategory($event,category)">
+            <input class="categoryinput w-100" value="{{category.title}}" click-stop-propagation (keyup)="updateCategory($event, category)">
+            <nb-icon icon="trash-can" pack="fa-solid" class="ml-auto mr-3 pr-1 iconhide1" (click)="DeleteCategory(category)" click-stop-propagation></nb-icon>
           </nb-accordion-item-header>
           <nb-accordion-item-body>
             <div class="d-flex titlerow">
@@ -22,9 +23,9 @@
               <div class="price matchwidth">Price</div>
             </div>
             <div class="d-flex inputrow pt-4" *ngFor="let spendings of category.spendings">
-              <input class="inputf w-100 title mr-4">
+              <input class="inputf w-100 title mr-4" [(ngModel)]="spendings.title" (keyup)="updateSpendingTitle($event, spendings)">
               <div class="d-flex inputf">
-                <input class="iprice" type="number" placeholder="0" [(ngModel)]="spendings.cost" (keyup)="Spendingupdate(category)">
+                <input class="iprice" type="number" placeholder="0" [(ngModel)]="spendings.cost" (keyup)="updateSpendingCost($event, spendings, category)">
                 <span>Ft</span>
               </div>
               <nb-icon icon="trash-can" pack="fa-solid" class="pl-2 iconhide" (click)="DeleteSpending(category,spendings)"></nb-icon>
