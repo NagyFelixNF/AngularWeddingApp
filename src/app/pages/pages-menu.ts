@@ -22,4 +22,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'money-check-dollar',pack:'fa-solid'},
     link: '/pages/budget',
   },
+  {
+    title: 'Guests',
+    icon: { icon: 'users',pack:'fa-solid'},
+    link: '/pages/guest',
+  },
 ];

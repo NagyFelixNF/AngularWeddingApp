@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoModule } from './todo/todo.module';
 import { BudgetComponent } from './budget/budget.component';
 import { BudgetModule } from './budget/budget.module';
+import { GuestModule } from './guest/guest.module';
+import { GuestComponent } from './guest/guest.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { BudgetModule } from './budget/budget.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
+    GuestModule
   ],
   declarations: [
     PagesComponent,

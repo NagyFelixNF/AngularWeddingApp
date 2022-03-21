@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoComponent } from './todo/todo.component';
 import { BudgetComponent } from './budget/budget.component';
+import { GuestComponent } from './guest/guest.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,6 +22,10 @@ const routes: Routes = [{
     {
       path: 'budget',
       component: BudgetComponent
+    },
+    {
+      path: 'guest',
+      component: GuestComponent
     },
 
 

@@ -1,1 +1,59 @@
-<p>guest works!</p>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-light">
+              <tr class="customtable">
+                <th scope="col">Name</th>
+                <th style="width: 10%" scope="col">Response</th>
+                <th scope="col">Dietary restrictions</th>
+                <th scope="col">Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                      <div class="d-flex flex-column">
+                      <label class="labelfont">Groom</label>
+                      <input class="inputstlye" placeholder="..."> 
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <nb-icon class="bigger" icon="check" pack="fa-solid"></nb-icon>
+                    </td>
+                    <td class="align-middle">Otto</td>
+                    <td class="align-middle textareatd">
+                      <textarea class="textareastlye"></textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column">
+                      <label class="labelfont">Bride</label>
+                      <input class="inputstlye" placeholder="..."> 
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <nb-icon class="bigger" icon="check" pack="fa-solid"></nb-icon>
+                    </td>
+                    <td class="align-middle">Otto</td>
+                    <td class="align-middle">@mdo</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column">
+                      <label class="labelfont">Category</label>
+                      <input class="inputstlye" placeholder="..."> 
+                      </div>
+                    </td>
+                    <td class="align-middle text-center">
+                      <nb-icon class="bigger" icon="check" pack="fa-solid" [nbContextMenu]="items" nbContextMenuTrigger="click" ></nb-icon>
+                    </td>
+                    <td class="align-middle">Otto</td>
+                    <td class="align-middle">@mdo</td>
+                  </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
