@@ -5,16 +5,16 @@ export interface Guest {
     response: GuestResponse;
     diet: string;
     editdiet: boolean;
+    side: string;
     comment: string;
     editcomment: boolean;
 }
 export enum GuestResponse
 {
-    Unknown = "UNKOWN",
-    Pending = "PENDING",
-    OnlyCeremony = "ONLYCEREMONY",
-    OnlyReception = "ONLYRECEPTION",
-    Canceled = "CANCELED",
-    AcceptedBoth = "ACCEPTEDBOTH"
-
+    Unknown,
+    Pending,
+    OnlyCeremony,
+    OnlyReception,
+    Canceled,
+    AcceptedBoth
 }

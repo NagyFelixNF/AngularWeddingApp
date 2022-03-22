@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NbTokenService } from '@nebular/auth';
 import { Observable, of } from 'rxjs';
 import { Guest, GuestResponse} from '../data/guest';
 
@@ -14,6 +16,7 @@ export class GuestService {
       'response' : GuestResponse.AcceptedBoth,
       'name' : "asd",
       'diet' : "a",
+      'side' : "",
       'editdiet' : false,
       'editcomment' : false,
       'comment' : ""
@@ -24,6 +27,7 @@ export class GuestService {
       'response' : GuestResponse.AcceptedBoth,
       'name' : "asd",
       'diet' : "",
+      'side' : "",
       'editdiet' : false,
       'editcomment' : false,
       'comment' : ""
@@ -33,17 +37,58 @@ export class GuestService {
       'category' : "Relative",
       'response' : GuestResponse.AcceptedBoth,
       'name' : "asd",
+      'side' : "bride",
       'diet' : "",
       'editdiet' : false,
       'editcomment' : false,
       'comment' : ""
     }
   ]
+  url = "https://localhost:5001/api/guest/"
 
-  constructor() { }
+  constructor(private TokenService: NbTokenService, private http: HttpClient) { }
+
+  getToken()
+  {
+    var token;
+    this.TokenService.get().subscribe(
+      x => token = x.getValue()
+    )
+    return token;
+  }
+
+  GetHeader()
+  {
+    console.log("header");
+    return  {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Bearer ${this.getToken()}`)
+    }
+    
+  }
 
   GetGuests(): Observable<Guest[]>
   {
-    return of(this.guests);
+    return this.http.get<Guest[]>(this.url,this.GetHeader()).pipe();
+  }
+
+  AddGuest(splitted: string[]): Observable<Guest>
+  {
+    var guest = {
+      'category' : splitted[1],
+      'response' : GuestResponse.Unknown,
+      'name' : "",
+      'diet' : "",
+      'side' : splitted[0],
+      'editdiet' : false,
+      'editcomment' : false,
+      'comment' : ""
+    }
+    return this.http.post<Guest>(this.url,guest,this.GetHeader()).pipe();
+  }
+
+  UpdateGuest(guest: Guest): void
+  {
+    this.http.patch(this.url+guest.id,guest,this.GetHeader()).subscribe();
   }
 }

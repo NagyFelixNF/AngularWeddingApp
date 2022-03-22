@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Guest, GuestResponse } from 'app/@core/data/guest';
 import { GuestService } from 'app/@core/services/guest.service';
 import { NbContextMenuDirective, NbMenuBag, NbMenuService } from '@nebular/theme';
+import { filter } from 'rxjs/operators';
+import { debounce } from 'lodash';
 
 @Component({
   selector: 'guest',
@@ -27,21 +29,28 @@ export class GuestComponent implements OnInit {
     this.GetGuests();
 
     this.nbMenuService.onItemClick()
+    .pipe(
+      filter(({ tag }) => !(tag == null)),
+    )
     .subscribe(
       (menuBag:NbMenuBag) => {
         this.ChangeResponse(menuBag.item.data,menuBag.tag);
       }
     );
+
+    this.UpdateGuestName = debounce(this.UpdateGuestName, 500);
   }
 
   GetGuests()
   {
-    this.GuestService.GetGuests().subscribe(guests => this.Guests = guests);
+    this.GuestService.GetGuests().subscribe(guests => {this.Guests = guests
+      console.log(this.Guests);
+    });
   }
 
   ClickDiet(guest:Guest)
   {
-    console.log(this.Guests);
+    console.log(guest);
     guest.editdiet = true;
   }
 
@@ -54,16 +63,31 @@ export class GuestComponent implements OnInit {
   {
     console.log(guest.diet);
     guest.editdiet = false;
+    this.GuestService.UpdateGuest(guest);
   }
 
   BlurComment(guest:Guest)
   {
     guest.editcomment = false;
+    this.GuestService.UpdateGuest(guest);
   }
 
   ChangeResponse(response:GuestResponse, id:string)
   {
-    var guest = this.Guests.find(x => x.id == id);
+    var guest : Guest = this.Guests.find(x => x.id == id);
     guest.response = response;
+    this.GuestService.UpdateGuest(guest);
+  }
+
+  AddGuest(category:string)
+  {
+    var splitted = category.split('&');
+    this.GuestService.AddGuest(splitted).subscribe(guest => this.Guests.push(guest));
+  }
+
+  UpdateGuestName(evet:any, guest:Guest)
+  {
+    guest.name = evet.target.value
+    this.GuestService.UpdateGuest(guest);
   }
 }

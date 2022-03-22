@@ -39,6 +39,11 @@ nb-icon.bigger
 {
     font-size: 2.2rem;
 }
+nb-icon.bigger2
+{
+
+    font-size: 1.4rem;
+}
 .textareastlye
 {
     border: 0px; 
@@ -53,4 +58,12 @@ tbody .textareatd
     padding: 0;
     padding-left: 2px;
     padding-right: 2px;
+}
+.buttonstyle
+{
+    --button-filled-basic-background-color: white;
+}
+nb-list-item
+{
+    --list-item-padding: 0.6rem
 }

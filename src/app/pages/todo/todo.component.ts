@@ -4,7 +4,7 @@ import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/
 import { NbContextMenuDirective, NbMenuBag, NbMenuService } from '@nebular/theme';
 import { SubTask, Todo } from 'app/@core/data/todo';
 import { TodoService } from 'app/@core/services/todo.service';
-import { filter } from 'rxjs-compat/operator/filter';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'todo',
@@ -47,7 +47,9 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.getTodo();
 
-    this.nbMenuService.onItemClick()
+    this.nbMenuService.onItemClick().pipe(
+      filter(({ tag }) => !(tag == null)),
+    )
     .subscribe(
       (menuBag:NbMenuBag) => {
         if(menuBag.item.data == 1)
