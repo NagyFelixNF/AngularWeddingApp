@@ -52,6 +52,34 @@
                     <td class="align-middle">Otto</td>
                     <td class="align-middle">@mdo</td>
                   </tr>
+                  <tr *ngFor="let guest of Guests">
+                    <td>
+                      <div class="d-flex flex-column">
+                      <label class="labelfont">{{guest.category}}</label>
+                      <input class="inputstlye" placeholder="..." value="{{guest.name}}"> 
+                      </div>
+                    </td>
+                    <td *ngIf="!(guest.category == 'Groom' || guest.category == 'Bride')" class="align-middle text-center" [nbContextMenu]="items" nbContextMenuTrigger="click" [ngSwitch]="guest.response" nbContextMenuTag={{guest.id}}>
+                      <nb-icon class="bigger" icon="check" pack="fa-solid" *ngSwitchCase="guestRespone.AcceptedBoth"></nb-icon>
+                      <nb-icon class="bigger" icon="question" pack="fa-solid" *ngSwitchCase="guestRespone.Unknown"></nb-icon>
+                      <nb-icon class="bigger" icon="church" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyCeremony"></nb-icon>
+                      <nb-icon class="bigger" icon="utensils" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyReception"></nb-icon>
+                      <nb-icon class="bigger" icon="xmark" pack="fa-solid" *ngSwitchCase="guestRespone.Canceled"></nb-icon>
+                      <nb-icon class="bigger" icon="clock" pack="fa-solid" *ngSwitchCase="guestRespone.Pending"></nb-icon>
+                      <nb-icon class="bigger" icon="circle" pack="fa-solid" *ngSwitchDefault></nb-icon>
+                    </td>
+                    <td class="align-middle text-center" *ngIf="(guest.category == 'Groom' || guest.category == 'Bride')">
+                      <nb-icon class="bigger" icon="check" pack="fa-solid"></nb-icon>
+                    </td>
+                    <td class="align-middle textareatd" (click)="ClickDiet(guest)" (focusout)="BlurDiet(guest)">
+                      <div *ngIf="!guest.editdiet" >{{guest.diet}}</div>
+                      <textarea [(ngModel)]="guest.diet" class="textareastlye" *ngIf="guest.editdiet" autofocus></textarea>
+                    </td>
+                    <td class="align-middle textareatd" (click)="ClickComment(guest)" (focusout)="BlurComment(guest)">
+                      <div *ngIf="!guest.editcomment">{{guest.comment}}</div>
+                      <textarea [(ngModel)]="guest.comment" class="textareastlye" *ngIf="guest.editcomment" autofocus></textarea>
+                    </td>
+                  </tr>
             </tbody>
         </table>
         </div>
