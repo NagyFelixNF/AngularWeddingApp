@@ -8,6 +8,7 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { GuestinvitationComponent } from './pages/Guestinvitation/guestinvitation.component';
 
 export const routes: Routes = [
   {
@@ -20,8 +21,15 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.module')
       .then(m => m.NgxAuthModule),
   },
+  {
+    path: 'invite',
+    loadChildren: () => import('./pages/invite.module')
+      .then(m => m.InviteModule),
+  },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
+  
+  
 ];
 
 const config: ExtraOptions = {

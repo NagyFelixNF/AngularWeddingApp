@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { NbAuthComponent } from '@nebular/auth';
+import { GuestinvitationComponent } from 'app/pages/Guestinvitation/guestinvitation.component';
 import { NgxLoginComponent } from './login/login.component';
 import { NgxLogoutComponent } from './logout/logout.component';
 import { NgxRegisterComponent } from './register/register.component';
@@ -21,9 +22,10 @@ export const routes: Routes = [
         {
             path: 'register',
             component: NgxRegisterComponent, 
-          },
+        },
       ],
     },
+    
 ];
 
 @NgModule({

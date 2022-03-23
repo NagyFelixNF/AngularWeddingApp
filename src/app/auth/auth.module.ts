@@ -26,8 +26,8 @@ import { NgxRegisterComponent } from './register/register.component';
     NbButtonModule,
     NbCheckboxModule,
     NgxAuthRoutingModule,
-
     NbAuthModule,
+    
   ],
   declarations: [
       NgxLoginComponent,

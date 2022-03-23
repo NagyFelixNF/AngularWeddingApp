@@ -27,4 +27,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'users',pack:'fa-solid'},
     link: '/pages/guest',
   },
+  {
+    title: 'Invitations',
+    icon: { icon: 'envelope-open-text',pack:'fa-solid'},
+    link: '/pages/invitation',
+  },
 ];
