@@ -3,9 +3,9 @@ import { GuestResponse } from "./guest";
 export interface Invitation {
     id: string;
     guestid: string;
+    weddingid:string;
     comment: string;
-    firstname: string| null;
-    lastname: string | null;
+    name: string;
     diet: string;
     response : GuestResponse;
 }

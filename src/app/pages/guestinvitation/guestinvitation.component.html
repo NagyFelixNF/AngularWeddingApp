@@ -9,23 +9,68 @@
                         </div>
                         <p class="text-center">You have been invited to our wedding!</p>
                         <p class="text-center">Please complete the below form to confirm your anwser!</p>
-                        <label class="label" for="input-re-password">Repeat password:</label>
+
+                    <form #invite = "ngForm" (ngSubmit)="SendResponse()" >
+                        <div>
+                        <label class="label" for="name">Full Name:*</label>
                         <input nbInput
-                        type="password"
-                        id="input-re-password"
-                        name="rePass"
-                        placeholder="Confirm Password"
+                        id="modelname"
+                        name="modelname"
                         fullWidth
+                        required
                         fieldSize="large"
+                        [(ngModel)]="fullname"
+                        #modelname="ngModel"
                         >
-                        <label class="label" for="ng-model-group">Will you be attending?</label>
-                        <nb-radio-group name="ng-model-group">
-                            <nb-radio value="5" checked="true">Yes, both ceremony and reception</nb-radio>
-                            <nb-radio value="4">No</nb-radio>
-                            <nb-radio value="3">Only ceremony</nb-radio>
-                            <nb-radio value="2">Only reception</nb-radio>
-                            <nb-radio value="0">Still not sure</nb-radio>
+                        </div>
+
+                        <ng-container  *ngIf="modelname.errors && modelname.touched" class="alert">
+                                <p class="caption status-danger" *ngIf="modelname.errors['required']">
+                                    Full name is required!
+                                </p>
+                        </ng-container>
+
+                        <div class="mt-2">
+                        <label class="label" for="ng-model-group">Will you be attending?*</label>
+                        <nb-radio-group  [(ngModel)]="response" name="ng-model-group">
+                            <nb-radio value={{guestRespone.AcceptedBoth}} >Yes, both ceremony and reception</nb-radio>
+                            <nb-radio value={{guestRespone.Canceled}}>No</nb-radio>
+                            <nb-radio value={{guestRespone.OnlyCeremony}}>Only ceremony</nb-radio>
+                            <nb-radio value={{guestRespone.OnlyReception}}>Only reception</nb-radio>
+                            <nb-radio value={{guestRespone.Unknown}}>Still not sure</nb-radio>
                         </nb-radio-group>
+                        </div>
+
+                        <div class="d-line mt-3" >
+                            <nb-checkbox class="align-middle mr-2" (checkedChange)="ShowDietField($event)"></nb-checkbox>
+                            <label class="label" >Do you have any food restrictions?</label>
+                        </div>
+
+                        <div class="mt-1" *ngIf="DietField">
+                            <label class="label" for="diet">Please leave a comment about your dietary restriction or allergy:</label>
+                            <input nbInput
+                            name="diet"
+                            fullWidth
+                            fieldSize="large"
+                            [(ngModel)]="diet"
+                            >
+                            </div>
+
+                        <div class="mt-3">
+                            <label class="label" for="comment">Comment or question:</label>
+                            <textarea nbInput fullWidth name="comment" [(ngModel)]="comment" ></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <button nbButton
+                                        status="primary"
+                                        size="large"
+                                        [disabled]="invite.invalid">
+                                        Submit
+                            </button>
+                        </div>
+                        
+                    </form>
                     </nb-card-body>
                 </nb-card>
             </div>

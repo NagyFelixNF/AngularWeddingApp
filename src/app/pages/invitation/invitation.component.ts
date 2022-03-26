@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Guest, GuestResponse } from 'app/@core/data/guest';
 import { Invitation } from 'app/@core/data/invitation';
 import { GuestService } from 'app/@core/services/guest.service';
-import { map } from 'rxjs/operators';
+import { Location, PlatformLocation} from '@angular/common';
+
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'invitation',
@@ -14,6 +16,7 @@ export class InvitationComponent implements OnInit {
   Guests : Guest[]
   Invitations : Invitation[] = [];
   guestRespone = GuestResponse;
+  weddingid : string;
 
   items = 
   [
@@ -25,15 +28,27 @@ export class InvitationComponent implements OnInit {
   { title: 'Canceled',icon: { icon: 'xmark',pack:'fa-solid'}, data: GuestResponse.Canceled},
   ];
 
-  constructor(public GuestService:GuestService) { }
+  constructor(public GuestService:GuestService, private platformLocation: PlatformLocation, private clipboardApi: ClipboardService) { }
 
   ngOnInit(): void {
+    this.GetWeddingId();
     this.GetGuests();
   }
 
   GetGuests()
   {
     this.GuestService.GetGuests().subscribe(guests => this.Guests = guests);
+  }
+
+  GetWeddingId()
+  {
+    this.GuestService.GetWeddingId().subscribe(id => this.weddingid = id);
+  }
+
+  copyURL(id: string)
+  {
+    console.log((this.platformLocation as any).location.origin + "/" + this.weddingid);
+    this.clipboardApi.copy((this.platformLocation as any).location.origin + "/invite" +"/" + this.weddingid + "/" + id);
   }
 
 }

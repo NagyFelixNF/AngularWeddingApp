@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { NbTokenService } from '@nebular/auth';
 import { Observable, of } from 'rxjs';
 import { Guest, GuestResponse} from '../data/guest';
+import { Invitation } from '../data/invitation';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,11 @@ export class GuestService {
     return this.http.get<Guest[]>(this.url,this.GetHeader()).pipe();
   }
 
+  GetWeddingId(): Observable<string>
+  {
+    return this.http.get<string>(this.url+"wedding",this.GetHeader()).pipe();
+  }
+
   AddGuest(splitted: string[]): Observable<Guest>
   {
     var guest = {
@@ -90,5 +96,10 @@ export class GuestService {
   UpdateGuest(guest: Guest): void
   {
     this.http.patch(this.url+guest.id,guest,this.GetHeader()).subscribe();
+  }
+
+  AddInvitation(invitation:any)
+  {
+    this.http.post(this.url+"invitation",invitation,this.GetHeader()).subscribe();
   }
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NbAccordionModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbRadioModule } from '@nebular/theme';
+import { NbAccordionModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbRadioModule, NbToggleModule } from '@nebular/theme';
 
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -7,6 +7,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 
 import { GuestinvitationComponent } from './guestinvitation.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,10 +18,14 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     ThemeModule,
+    FormsModule,
     NbLayoutModule,
     NbCardModule,
     NbInputModule,
-    NbRadioModule
+    NbRadioModule,
+    NbToggleModule,
+    NbCheckboxModule,
+    NbButtonModule
   ]
 })
 export class GuestinvitationModule { }
