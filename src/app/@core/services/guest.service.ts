@@ -10,41 +10,7 @@ import { Invitation } from '../data/invitation';
 })
 export class GuestService {
 
-  guests: Guest[] = [
-    {
-      'id' : "1",
-      'category' : "Groom",
-      'response' : GuestResponse.AcceptedBoth,
-      'name' : "asd",
-      'diet' : "a",
-      'side' : "",
-      'editdiet' : false,
-      'editcomment' : false,
-      'comment' : ""
-    },
-    {
-      'id' : "2",
-      'category' : "Bride",
-      'response' : GuestResponse.AcceptedBoth,
-      'name' : "asd",
-      'diet' : "",
-      'side' : "",
-      'editdiet' : false,
-      'editcomment' : false,
-      'comment' : ""
-    },
-    {
-      'id' : "3",
-      'category' : "Relative",
-      'response' : GuestResponse.AcceptedBoth,
-      'name' : "asd",
-      'side' : "bride",
-      'diet' : "",
-      'editdiet' : false,
-      'editcomment' : false,
-      'comment' : ""
-    }
-  ]
+  
   url = "https://localhost:5001/api/guest/"
 
   constructor(private TokenService: NbTokenService, private http: HttpClient) { }
@@ -93,6 +59,12 @@ export class GuestService {
     return this.http.post<Guest>(this.url,guest,this.GetHeader()).pipe();
   }
 
+  AddGuestFromInvitation(guest:any): Observable<Guest>
+  {
+
+    return this.http.post<Guest>(this.url,guest,this.GetHeader()).pipe();
+  }
+
   UpdateGuest(guest: Guest): void
   {
     this.http.patch(this.url+guest.id,guest,this.GetHeader()).subscribe();
@@ -102,4 +74,10 @@ export class GuestService {
   {
     this.http.post(this.url+"invitation",invitation,this.GetHeader()).subscribe();
   }
+
+  GetInvitations(): Observable<Invitation[]>
+  {
+    return this.http.get<Invitation[]>(this.url+"invitation",this.GetHeader()).pipe();
+  }
+
 }

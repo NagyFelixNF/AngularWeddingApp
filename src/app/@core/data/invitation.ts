@@ -8,4 +8,5 @@ export interface Invitation {
     name: string;
     diet: string;
     response : GuestResponse;
+    action: string;
 }

@@ -23,7 +23,7 @@ export class GuestComponent implements OnInit {
   Guests:Guest[];
   guestRespone = GuestResponse;
 
-  constructor(public GuestService:GuestService, private nbMenuService: NbMenuService) { }
+  constructor(public GuestService:GuestService, private nbMenuService: NbMenuService) {this.UpdateGuestName = debounce(this.UpdateGuestName, 500); }
 
   ngOnInit(): void {
     this.GetGuests();
@@ -38,7 +38,7 @@ export class GuestComponent implements OnInit {
       }
     );
 
-    this.UpdateGuestName = debounce(this.UpdateGuestName, 500);
+    
   }
 
   GetGuests()

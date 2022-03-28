@@ -1,3 +1,5 @@
+import { Invitation } from "./invitation";
+
 export interface Guest {
     id: string;
     name: string;
@@ -8,6 +10,7 @@ export interface Guest {
     side: string;
     comment: string;
     editcomment: boolean;
+    invitations: Invitation[];
 }
 export enum GuestResponse
 {

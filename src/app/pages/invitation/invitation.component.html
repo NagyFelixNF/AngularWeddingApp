@@ -12,6 +12,53 @@
       </div>
     </div>
 
+    <div class="row justify-content-center" *ngFor="let invite of Invitations">
+      <div class="col-7">
+        <nb-card>
+          <nb-card-header class="row justify-content-center align-items-center">
+            <div class="mr-auto align-middle text-center"  [ngSwitch]="invite.response" >
+                  <nb-icon class="bigger" icon="check" pack="fa-solid" *ngSwitchCase="guestRespone.AcceptedBoth"></nb-icon>
+                  <nb-icon class="bigger" icon="question" pack="fa-solid" *ngSwitchCase="guestRespone.Unknown"></nb-icon>
+                  <nb-icon class="bigger" icon="church" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyCeremony"></nb-icon>
+                  <nb-icon class="bigger" icon="utensils" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyReception"></nb-icon>
+                  <nb-icon class="bigger" icon="xmark" pack="fa-solid" *ngSwitchCase="guestRespone.Canceled"></nb-icon>
+                  <nb-icon class="bigger" icon="clock" pack="fa-solid" *ngSwitchCase="guestRespone.Pending"></nb-icon>
+                  <nb-icon class="bigger" icon="circle" pack="fa-solid" *ngSwitchDefault></nb-icon>
+            </div>
+            <div>{{invite.name}}</div>
+            <div class="ml-auto"></div>
+          </nb-card-header>
+          <nb-card-body>
+            <p>Comment or question from the guest:</p>
+            <nb-card class="comment">
+                <nb-card-body>
+                  {{invite.comment}}<ng-container *ngIf="invite.comment == ''">-</ng-container>
+                </nb-card-body>
+            </nb-card>
+            <div *ngIf="!invite.diet == ''" class="ml-1 row text-danger">
+            <p class="text-danger">Dietary restrictions:</p><span class="font-weight-bold">&nbsp;fsd</span>
+            </div>
+
+            <div class="row justify-content-center">
+                <nb-select placeholder="Actions" [(ngModel)]="invite.action">
+                  <nb-option value="add">Add new guest</nb-option>
+                  <nb-option value="delete">Delete invitation</nb-option>
+                  <nb-option *ngFor="let guestid of FilterNameless(Guests)" value="assign={{guestid.id}}">Assign to: {{guestid.name}}</nb-option>
+                </nb-select>
+                <button class="ml-auto" nbButton (click)="PerformAction(invite)">
+                  <ng-container *ngIf="invite.action == 'add'">Add</ng-container>
+                  <ng-container *ngIf="invite.action == 'delete'">Delete</ng-container>
+                  <ng-container *ngIf="invite.action.includes('assign')">Assign</ng-container>
+                </button>
+            </div>
+
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+    
+
     <div class="row justify-content-center">
       <div class="col-7">
 
@@ -23,18 +70,18 @@
                 <div class="input-group-text">
                   <div class="align-middle text-center" [nbContextMenu]="items" nbContextMenuTrigger="click"
                     [ngSwitch]="guest.response" nbContextMenuTag={{guest.id}}>
-                    <nb-icon class="bigger" icon="check" pack="fa-solid" *ngSwitchCase="guestRespone.AcceptedBoth"></nb-icon>
-                    <nb-icon class="bigger" icon="question" pack="fa-solid" *ngSwitchCase="guestRespone.Unknown"></nb-icon>
-                    <nb-icon class="bigger" icon="church" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyCeremony"></nb-icon>
-                    <nb-icon class="bigger" icon="utensils" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyReception"></nb-icon>
-                    <nb-icon class="bigger" icon="xmark" pack="fa-solid" *ngSwitchCase="guestRespone.Canceled"></nb-icon>
-                    <nb-icon class="bigger" icon="clock" pack="fa-solid" *ngSwitchCase="guestRespone.Pending"></nb-icon>
-                    <nb-icon class="bigger" icon="circle" pack="fa-solid" *ngSwitchDefault></nb-icon>
+                    <nb-icon  icon="check" pack="fa-solid" *ngSwitchCase="guestRespone.AcceptedBoth"></nb-icon>
+                    <nb-icon  icon="question" pack="fa-solid" *ngSwitchCase="guestRespone.Unknown"></nb-icon>
+                    <nb-icon  icon="church" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyCeremony"></nb-icon>
+                    <nb-icon  icon="utensils" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyReception"></nb-icon>
+                    <nb-icon  icon="xmark" pack="fa-solid" *ngSwitchCase="guestRespone.Canceled"></nb-icon>
+                    <nb-icon  icon="clock" pack="fa-solid" *ngSwitchCase="guestRespone.Pending"></nb-icon>
+                    <nb-icon  icon="circle" pack="fa-solid" *ngSwitchDefault></nb-icon>
                   </div>
                 </div>
               </div>
 
-              <input type="text" class="form-control" placeholder="..." value="{{guest.name}}">
+              <input type="text" class="form-control" placeholder="..." value="{{guest.name}}" (keyup)="UpdateGuestName($event,guest)">
 
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -43,11 +90,32 @@
               </div>
             </div>
 
-            <div *ngIf="true">
+            <div *ngFor="let inv of guest.invitations">
               <div class="arrow offset-md-2"></div>
               <nb-card class="offset-md-1 cardborder">
+                <nb-card-header class="row justify-content-center align-items-center">
+                  <div class="mr-auto align-middle text-center"  [ngSwitch]="guestRespone.AcceptedBoth" >
+                        <nb-icon class="bigger" icon="check" pack="fa-solid" *ngSwitchCase="guestRespone.AcceptedBoth"></nb-icon>
+                        <nb-icon class="bigger" icon="question" pack="fa-solid" *ngSwitchCase="guestRespone.Unknown"></nb-icon>
+                        <nb-icon class="bigger" icon="church" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyCeremony"></nb-icon>
+                        <nb-icon class="bigger" icon="utensils" pack="fa-solid" *ngSwitchCase="guestRespone.OnlyReception"></nb-icon>
+                        <nb-icon class="bigger" icon="xmark" pack="fa-solid" *ngSwitchCase="guestRespone.Canceled"></nb-icon>
+                        <nb-icon class="bigger" icon="clock" pack="fa-solid" *ngSwitchCase="guestRespone.Pending"></nb-icon>
+                        <nb-icon class="bigger" icon="circle" pack="fa-solid" *ngSwitchDefault></nb-icon>
+                  </div>
+                  <div>{{inv.name}}</div>
+                  <div class="ml-auto"></div>
+                </nb-card-header>
                 <nb-card-body>
-                  Card
+                  <p>Comment or question from the guest:</p>
+                  <nb-card class="comment">
+                      <nb-card-body>
+                        {{inv.comment}}<ng-container *ngIf="inv.comment == ''">-</ng-container>
+                      </nb-card-body>
+                  </nb-card>
+                  <div *ngIf="!inv.diet == ''" class="ml-1 row text-danger">
+                  <p class="text-danger">Dietary restrictions:</p><span class="font-weight-bold">&nbsp;{{inv.diet}}</span>
+                  </div>
                 </nb-card-body>
               </nb-card>
             </div>
