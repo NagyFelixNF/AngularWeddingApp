@@ -7,6 +7,7 @@ import { TodoComponent } from './todo/todo.component';
 import { BudgetComponent } from './budget/budget.component';
 import { GuestComponent } from './guest/guest.component';
 import { InvitationComponent } from './Invitation/invitation.component';
+import { SeatingComponent } from './seating/seating.component';
 import { GuestinvitationComponent } from './Guestinvitation/guestinvitation.component';
 
 const routes: Routes = [{
@@ -33,6 +34,11 @@ const routes: Routes = [{
       path: 'invitation',
       component: InvitationComponent
     },
+    {
+      path: 'seating',
+      component: SeatingComponent
+    },
+  
   
 
 

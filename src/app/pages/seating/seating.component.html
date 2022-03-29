@@ -1,0 +1,8 @@
+<div class="canvas-wrapper">
+    <canvas  class="canvas-wrapper1" id="canvas"></canvas>
+</div>
+<button (click)="addRectTable()">add line</button>
+<button (click)="addCircTable()">add line</button>
+<button (click)="addSeat()">add line</button>
+<button (click)="getActive()">add line</button>
+<div *ngIf="showDetails"><h1>On seat {{Seat.seatid}}</h1><button (click)="set(Seat)">add line</button></div>

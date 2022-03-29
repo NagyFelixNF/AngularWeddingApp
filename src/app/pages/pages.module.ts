@@ -13,6 +13,7 @@ import { GuestModule } from './guest/guest.module';
 import { GuestComponent } from './guest/guest.component';
 import { InvitationModule } from './invitation/invitation.module';
 import { GuestinvitationModule } from './Guestinvitation/Guestinvitation.module';
+import { SeatingModule } from './Seating/Seating.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { GuestinvitationModule } from './Guestinvitation/Guestinvitation.module'
     ThemeModule,
     NbMenuModule,
     DashboardModule,
+    SeatingModule
   ],
   declarations: [
     PagesComponent,

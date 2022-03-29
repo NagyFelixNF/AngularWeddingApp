@@ -32,4 +32,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'envelope-open-text',pack:'fa-solid'},
     link: '/pages/invitation',
   },
+  {
+    title: 'Seatings',
+    icon: { icon: 'envelope-open-text',pack:'fa-solid'},
+    link: '/pages/seating',
+  },
 ];
