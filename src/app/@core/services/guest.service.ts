@@ -80,4 +80,14 @@ export class GuestService {
     return this.http.get<Invitation[]>(this.url+"invitation",this.GetHeader()).pipe();
   }
 
+  SaveSeating(Json:any)
+  {
+    this.http.put(this.url+"seat",Json,this.GetHeader()).subscribe(x => console.log(x));
+  }
+
+  GetSeating()
+  {
+    return this.http.get(this.url+"seat",this.GetHeader()).pipe();
+  }
+
 }

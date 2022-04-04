@@ -11,6 +11,7 @@ export interface Guest {
     comment: string;
     editcomment: boolean;
     invitations: Invitation[];
+    seatid:number;
 }
 export enum GuestResponse
 {

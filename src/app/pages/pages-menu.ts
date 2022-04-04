@@ -34,7 +34,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Seatings',
-    icon: { icon: 'envelope-open-text',pack:'fa-solid'},
+    icon: { icon: 'chair',pack:'fa-solid'},
     link: '/pages/seating',
+  },
+  {
+    title: 'Events',
+    icon: { icon: 'clock',pack:'fa-solid'},
+    link: '/pages/time',
   },
 ];

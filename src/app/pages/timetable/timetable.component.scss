@@ -1,0 +1,46 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none; 
+}
+.inputf
+{
+    font-size: 35px;
+    font-weight: 200;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+    max-width: 50px;
+}
+.dot
+{
+    font-size: 35px;
+    font-weight: 200;
+}
+.titleinput
+{
+    font-size: 35px;
+    font-weight: 200;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    outline: none;
+}
+.timeborder
+{
+    border-right: dotted 2px ;
+}
+.buttonstyle
+{
+    --button-filled-basic-background-color: white;
+}
+nb-icon.bigger2
+{
+
+    font-size: 1.4rem;
+}
+.cardborder
+{
+    --card-border-radius:2rem;
+    --card-margin-bottom: 10px;
+}

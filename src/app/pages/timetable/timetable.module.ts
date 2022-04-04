@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SeatingComponent } from './seating.component';
-import { ThemeModule } from 'app/@theme/theme.module';
-import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
+import { TimetableComponent } from './timetable.component';
 import { FormsModule } from '@angular/forms';
+import { NbCardModule, NbIconModule, NbInputModule, NbButtonModule, NbSelectModule } from '@nebular/theme';
+import { ThemeModule } from 'app/@theme/theme.module';
 
 
 
 @NgModule({
   declarations: [
-    SeatingComponent
+    TimetableComponent
   ],
   imports: [
     CommonModule,
@@ -22,4 +22,4 @@ import { FormsModule } from '@angular/forms';
     NbSelectModule,
   ]
 })
-export class SeatingModule { }
+export class TimetableModule { }

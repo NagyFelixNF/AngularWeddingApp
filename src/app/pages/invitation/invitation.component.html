@@ -3,7 +3,7 @@
 
     <div class="row justify-content-center">
       <div class="col-8">
-        <nb-card>
+        <nb-card *ngIf="Invitations.length == 0">
           <nb-card-body class="text-center">
             <p>There are no responses yet!</p>
             <p>This is the inbox, where the invations arrive.</p>

@@ -8,7 +8,7 @@ import { BudgetComponent } from './budget/budget.component';
 import { GuestComponent } from './guest/guest.component';
 import { InvitationComponent } from './Invitation/invitation.component';
 import { SeatingComponent } from './seating/seating.component';
-import { GuestinvitationComponent } from './Guestinvitation/guestinvitation.component';
+import { TimetableComponent } from './Timetable/timetable.component';
 
 const routes: Routes = [{
   path: '',
@@ -37,6 +37,10 @@ const routes: Routes = [{
     {
       path: 'seating',
       component: SeatingComponent
+    },
+    {
+      path: 'time',
+      component: TimetableComponent
     },
   
   

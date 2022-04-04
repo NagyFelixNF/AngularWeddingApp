@@ -14,6 +14,7 @@ import { GuestComponent } from './guest/guest.component';
 import { InvitationModule } from './invitation/invitation.module';
 import { GuestinvitationModule } from './Guestinvitation/Guestinvitation.module';
 import { SeatingModule } from './Seating/Seating.module';
+import { TimetableModule } from './Timetable/Timetable.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { SeatingModule } from './Seating/Seating.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    SeatingModule
+    SeatingModule,
+    TimetableModule
   ],
   declarations: [
     PagesComponent,

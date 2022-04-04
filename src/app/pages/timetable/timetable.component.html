@@ -1,0 +1,24 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+  
+      <div class="row justify-content-center">
+        <div class="col-8">
+            <nb-card class="p-1 cardborder" *ngFor="let event of Events">
+                <nb-card-body class=" d-flex row justify-content-between">
+                    <div class="timeborder pr-4">
+                    <input class="inputf mr-2" placeholder="00" type="number" (keydown)="TimeKeyDown($event)" (keyup)="HourInputKeyUp($event)" [(ngModel)]="event.hour" (blur)="SortEvents()">
+                    <span class="dot">:</span>
+                    <input class="inputf ml-2" placeholder="00" type="number" (keydown)="TimeKeyDown($event)" (keyup)="MinuteInputKeyUp($event)" [(ngModel)]="event.minute" (blur)="SortEvents()">
+                    </div>
+                    <div>
+                        <input class="titleinput ml-auto" placeholder="Title" >
+                    </div>
+                </nb-card-body>
+            </nb-card>
+            <div class="row justify-content-center">
+                <button class=" buttonstyle mt-3" nbButton shape="round" (click)="addEvent()"><nb-icon class="bigger2 d-flex flex-row align-items-center" icon="plus" pack="fa-solid"></nb-icon>Add event</button>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
