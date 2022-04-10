@@ -67,3 +67,11 @@ nb-list-item
 {
     --list-item-padding: 0.6rem
 }
+.iconhide
+{
+    visibility: hidden;
+}
+tr:hover .iconhide
+{
+    visibility: visible;
+}

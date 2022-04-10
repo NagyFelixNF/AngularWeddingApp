@@ -42,4 +42,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: { icon: 'clock',pack:'fa-solid'},
     link: '/pages/time',
   },
+  {
+    title: 'Vendor',
+    icon: { icon: 'store',pack:'fa-solid'},
+    link: '/pages/vendor',
+  },
 ];

@@ -90,4 +90,12 @@ export class GuestComponent implements OnInit {
     guest.name = evet.target.value
     this.GuestService.UpdateGuest(guest);
   }
+
+  DeleteGuest(guest:Guest)
+  {
+    this.GuestService.DeleteGuest(guest.id);
+    console.log(this.Guests.indexOf(guest));
+    this.Guests.splice(this.Guests.indexOf(guest),1);
+    console.log(this.Guests);
+  }
 }

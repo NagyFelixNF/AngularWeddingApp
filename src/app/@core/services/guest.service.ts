@@ -39,6 +39,11 @@ export class GuestService {
     return this.http.get<Guest[]>(this.url,this.GetHeader()).pipe();
   }
 
+  DeleteGuest(guestid:string)
+  {
+    this.http.delete(this.url+guestid,this.GetHeader()).subscribe();
+  }
+
   GetWeddingId(): Observable<string>
   {
     return this.http.get<string>(this.url+"wedding",this.GetHeader()).pipe();

@@ -25,6 +25,7 @@ import {
 import { NbAuthJWTToken, NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy } from '@nebular/auth';
 import { FormsModule } from '@angular/forms';
 import { AutofocusFixModule } from 'ngx-autofocus-fix';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -74,7 +75,8 @@ import { AutofocusFixModule } from 'ngx-autofocus-fix';
         }),
       ],
       forms: {},
-    })
+    }),
+    NgbModule
   ],
   bootstrap: [AppComponent],
 })

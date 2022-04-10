@@ -96,7 +96,7 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  Spendingupdate(category:Category)
+  RecalcCategoryTotal(category:Category)
   {
     var newsum = 0;
     category.spendings.forEach(element => {
@@ -125,7 +125,7 @@ export class BudgetComponent implements OnInit {
     var index = category.spendings.indexOf(spending);
     category.spendings.splice(index,1);
     this.BudgetService.deleteSpending(spending);
-    this.Spendingupdate(category);
+    this.RecalcCategoryTotal(category);
   }
 
   DeleteCategory(category:Category)
@@ -155,7 +155,7 @@ export class BudgetComponent implements OnInit {
     {
       spending.cost = null;
     }
-    this.Spendingupdate(category);
+    this.RecalcCategoryTotal(category);
     this.updateSpending(spending);
   }
 

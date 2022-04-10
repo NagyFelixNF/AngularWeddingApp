@@ -98,50 +98,43 @@ export class TodoService {
     todo.subEditing = false;
   }
 
-  SubTodoCheckboxChanged(event :any,todo: Todo, subtodo:SubTask,)
-  {
+  SubTodoCheckboxChanged(event: any, todo: Todo, subtodo: SubTask,) {
     var AllSubDoneFlag: boolean;
-    AllSubDoneFlag = true; 
+    AllSubDoneFlag = true;
     subtodo.completed = event;
-    this.http.patch(this.url+"sub/"+subtodo.id,subtodo,this.GetHeader()).subscribe();
+    this.http.patch(this.url + "sub/" + subtodo.id, subtodo, this.GetHeader()).subscribe();
     todo.subPreparations.forEach(
-      sub =>
-      {
-        if(sub.completed === false)
-        {
+      sub => {
+        if (sub.completed === false) {
           AllSubDoneFlag = false;
           return;
         }
       }
     );
-    if(AllSubDoneFlag){
-      if(todo.completed != true){
+    if (AllSubDoneFlag) {
+      if (todo.completed != true) {
         todo.completed = true;
-        this.http.patch(this.url+todo.id,todo,this.GetHeader()
-  ).subscribe();
+        this.http.patch(this.url + todo.id, todo, this.GetHeader()
+        ).subscribe();
       }
     }
-    else
-    {
-      if(todo.completed != false){
+    else {
+      if (todo.completed != false) {
         todo.completed = false;
-        this.http.patch(this.url+todo.id,todo,this.GetHeader()
-  ).subscribe();
+        this.http.patch(this.url + todo.id, todo, this.GetHeader()
+        ).subscribe();
       }
     }
   }
 
-  TodoCheckboxChanged(event :any,todo: Todo)
-  {
-    //i could optimaze this on server side?
+  TodoCheckboxChanged(event: any, todo: Todo) {
     todo.completed = event;
-    this.http.patch(this.url+todo.id,todo,this.GetHeader()).subscribe();
+    this.http.patch(this.url + todo.id, todo, this.GetHeader()).subscribe();
     todo.subPreparations.forEach(
-      sub =>
-      {
+      sub => {
         sub.completed = event;
-        this.http.patch(this.url+"sub/"+sub.id,sub,this.GetHeader()
-  ).subscribe();
+        this.http.patch(this.url + "sub/" + sub.id, sub, this.GetHeader()
+        ).subscribe();
       }
     );
   }

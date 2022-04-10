@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div class="row justify-content-center">
+      <h2>Vendors</h2>
+    </div>
+    <div class="row justify-content-center">
+      <h6>Browse our selected vendors!</h6>
+    </div>
+
+    <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true" interval="4500" [keyboard]="true"
+      [pauseOnHover]="true" [wrap]="true">
+      <ng-container *ngFor="let item of vendorpages">
+      <ng-template ngbSlide >
+        <div class="row justify-content-center p-5">
+          <div class="col-md-3" *ngFor="let vendor of item.vendor">
+
+            <nb-reveal-card class="mb-2" >
+              <nb-card-front>
+                <nb-card class="cardheight">
+                  <nb-card-header>{{vendor.name}}</nb-card-header>
+                  <nb-card-body>
+                    {{vendor.description}}
+                  </nb-card-body>
+                  <nb-card-footer>Category:<br>{{vendor.category}}</nb-card-footer>
+                </nb-card>
+              </nb-card-front>
+
+              <nb-card-back>
+                <nb-card class="cardheight">
+                  <nb-card-header>{{vendor.name}}</nb-card-header>
+                  <nb-card-body>
+                    <p>Email:</p>
+                    <p>{{vendor.email}}</p>
+                    <p>Telephone:</p>
+                    <p>{{vendor.telnumber}}</p>
+                  </nb-card-body>
+                  <nb-card-footer>General Information</nb-card-footer>
+                </nb-card>
+              </nb-card-back>
+
+            </nb-reveal-card>
+          </div>
+        </div>
+        
+      </ng-template>
+    </ng-container>
+    </ngb-carousel>
+  </div>
+</div>

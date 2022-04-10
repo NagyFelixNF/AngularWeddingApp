@@ -9,6 +9,7 @@ import { GuestComponent } from './guest/guest.component';
 import { InvitationComponent } from './Invitation/invitation.component';
 import { SeatingComponent } from './seating/seating.component';
 import { TimetableComponent } from './Timetable/timetable.component';
+import { VendorComponent } from './Vendor/vendor.component';
 
 const routes: Routes = [{
   path: '',
@@ -41,6 +42,10 @@ const routes: Routes = [{
     {
       path: 'time',
       component: TimetableComponent
+    },
+    {
+      path: 'vendor',
+      component: VendorComponent
     },
   
   
