@@ -9,6 +9,8 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 import { debounce } from 'lodash';
 import { Guest } from 'app/@core/data/guest';
 import { HttpRequest } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ObjectUnsubscribedError } from 'rxjs';
 
 @Component({
   selector: 'seating',
@@ -24,9 +26,17 @@ export class SeatingComponent implements OnInit {
   Seat: any;
   Guests: Guest[]
   GuestValue = null;
+  customcanvas: any;
+  TextColor = '#000000';
+  BorderColor = '#000000';
+  FillColor = '#FFFFFF';
+  BorderSize = '2';
+  FontSize = '16';
+  Text = "";
+  BringToFront = true;
 
-  constructor(private GuestService: GuestService) {
-    this.saveSeating = debounce(this.saveSeating, 500);
+  constructor(private GuestService: GuestService, private ModalService: NgbModal) {
+    this.saveSeating = debounce(this.saveSeating, 900);
   }
 
   ngOnInit(): void {
@@ -325,6 +335,118 @@ export class SeatingComponent implements OnInit {
       top: 50,
     })
     this.canvas.add(group);
+  }
+
+  openModal(content) {
+    this.ModalService.open(content, { size: 'lg' });
+    this.customcanvas = new fabric.Canvas('custom');
+    this.customcanvas.setHeight(400);
+    this.customcanvas.setWidth(500);
+    this.customcanvas.on("before:selection:cleared", x => this.BringToFrontEvent(x))
+    this.customcanvas.requestRenderAll();
+  }
+
+  BringToFrontEvent(x) {
+    if (this.BringToFront) {
+      x.target.bringToFront();
+    }
+    else {
+      this.BringToFront = true;
+    }
+  }
+
+  AddText() {
+    if (this.Text != "") {
+      var text = new fabric.Text(this.Text, {
+        left: 250,
+        top: 200,
+        fontSize: parseInt(this.FontSize),
+        fill: this.TextColor
+      });
+      this.customcanvas.add(text);
+      this.customcanvas.requestRenderAll();
+    }
+  }
+
+  AddRectangle() {
+    var rect: any = new fabric.Rect({
+      left: 250,
+      top: 200,
+      fill: this.FillColor,
+      width: 100,
+      height: 50,
+      stroke: this.BorderColor,
+      strokeWidth: parseInt(this.BorderSize)
+    });
+    this.customcanvas.add(rect);
+    this.customcanvas.requestRenderAll();
+  }
+
+  AddCircle() {
+    var rect: any = new fabric.Circle({
+      left: 250,
+      top: 200,
+      fill: this.FillColor,
+      radius: 15,
+      stroke: this.BorderColor,
+      strokeWidth: parseInt(this.BorderSize)
+    });
+    this.customcanvas.add(rect);
+    this.customcanvas.requestRenderAll();
+  }
+
+  AddTriangle() {
+    var rect: any = new fabric.Triangle({
+      left: 250,
+      top: 200,
+      fill: this.FillColor,
+      width: 80,
+      height: 80,
+      stroke: this.BorderColor,
+      strokeWidth: parseInt(this.BorderSize)
+    });
+    this.customcanvas.add(rect);
+    this.customcanvas.requestRenderAll();
+  }
+
+  AddLine() {
+    var rect: any = new fabric.Line([200, 200, 300, 200],{
+      fill: this.FillColor,
+      stroke: this.BorderColor,
+      strokeWidth: parseInt(this.BorderSize)
+    });
+    this.customcanvas.add(rect);
+    this.customcanvas.requestRenderAll();
+  }
+
+  DeleteCustom() {
+    var element = this.customcanvas.getActiveObject();
+    if (!this.isUndefined(element)) {
+      this.BringToFront = false;
+      if (element.type != 'activeSelection') {
+        this.customcanvas.remove(element);
+      }
+      else {
+        element.getObjects().forEach(object => {
+          this.customcanvas.remove(object);
+        });
+      }
+      this.customcanvas.requestRenderAll().discardActiveObject();
+    }
+  }
+
+  AddCustomElement()
+  {
+    var objs = this.customcanvas.getObjects();
+    if(objs.length != 0){
+    var group = new fabric.Group(objs, {
+      left: 325,
+      top: 400,
+    });
+    this.canvas.add(group);
+    this.ModalService.dismissAll();
+    this.canvas.requestRenderAll();
+    }
   }
 
 }

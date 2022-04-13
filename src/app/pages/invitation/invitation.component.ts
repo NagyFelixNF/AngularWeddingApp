@@ -75,6 +75,10 @@ export class InvitationComponent implements OnInit {
     console.log((this.platformLocation as any).location.origin + "/" + this.weddingid);
     this.clipboardApi.copy((this.platformLocation as any).location.origin + "/invite" +"/" + this.weddingid + "/" + id);
   }
+  copyURLWedding()
+  {
+    this.clipboardApi.copy((this.platformLocation as any).location.origin + "/invite" +"/" + this.weddingid);
+  }
 
   GetInvitation()
   {
@@ -124,7 +128,9 @@ export class InvitationComponent implements OnInit {
     }
     else if(invite.action.includes("assign"))
     {
-      console.log(invite.action)
+      var guestid:string = invite.action.split("=")[1];
+      this.Guests.find(x => x.id == guestid).invitations.push(invite);
+      this.GuestService.AddInvitationToGuest(invite,guestid);
     }
     this.Invitations.splice(this.Invitations.indexOf(invite),1);
   }

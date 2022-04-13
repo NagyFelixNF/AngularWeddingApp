@@ -70,6 +70,11 @@ export class GuestService {
     return this.http.post<Guest>(this.url,guest,this.GetHeader()).pipe();
   }
 
+  AddInvitationToGuest(invitation:any,id:any): void
+  {
+    this.http.patch(this.url+"invitation/"+id,invitation,this.GetHeader()).subscribe();
+  }
+
   UpdateGuest(guest: Guest): void
   {
     this.http.patch(this.url+guest.id,guest,this.GetHeader()).subscribe();

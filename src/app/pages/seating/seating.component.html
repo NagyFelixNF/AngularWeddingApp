@@ -5,9 +5,10 @@
                 <button nbButton class="mr-2" (click)="addRectTable()">Add Table</button>
                 <button nbButton class="mr-2" (click)="addCircTable()">Add Round Table</button>
                 <button nbButton class="mr-2" (click)="addSeat()">Add Seat</button>
-                <button nbButton class="mr-2" (click)=" AddDoor()">Add Door</button>
+                <button nbButton class="mr-2" (click)="AddDoor()">Add Door</button>
                 <button nbButton class="mr-2" (click)="getActive()">Delete</button>
-                <button nbButton (click)="saveImage(refEl)"><a #refEl >Save Image</a></button>
+                <button nbButton class="mr-2" (click)="saveImage(refEl)"><a #refEl >Save Image</a></button>
+                <button nbButton (click)="openModal(customelement)">Add Custom Element</button>
                 
             </nb-card-body>
         </nb-card>
@@ -47,3 +48,74 @@
         </div>
     </div>
 </div>
+<ng-template #customelement let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Editor</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <nb-card>
+            <nb-card-body>
+                <div class="row justify-content-start">
+                    <div class="col-2">
+                        <p class="mb-1">Text color:</p>
+                        <input type="color" class="form-control-color selectwidth1" [(ngModel)]="TextColor">
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-1">Font size:</p>
+                        <input nbInput type="number" fieldSize="small" min="6" max="100" [(ngModel)]="FontSize">
+                    </div>
+                    <div class="col-4">
+                        <p class="mb-1">Text:</p>
+                        <input nbInput fieldSize="small" placeholder="Input" [(ngModel)]="Text">
+                    </div>
+                    <div div class="col-2 align-self-center">
+                        <button nbButton (click)="AddText()" >Add Text</button>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <div class="row justify-content-start">
+                    <div class="col">
+                        <p class="mb-1">Fill color:</p>
+                        <input type="color" class="form-control-color selectwidth1" [(ngModel)]="FillColor">
+                    </div>
+                    <div class="col">
+                        <p class="mb-1">Border color:</p>
+                        <input type="color" class="form-control-color selectwidth1" [(ngModel)]="BorderColor">
+                    </div>
+                    <div class="col">
+                        <p class="mb-1">Border size:</p>
+                        <input nbInput type="number" fieldSize="small" min="0" max="15" [(ngModel)]="BorderSize">
+                    </div>
+                    <div class="mt-2 row justify-content-start">
+                    <div class="ml-3 mr-2 align-self-center"> 
+                        <button nbButton (click)="AddLine()">Add Line</button>
+                    </div>
+                    <div class="mr-2 align-self-center">
+                        <button nbButton (click)="AddCircle()">Add Circle</button>
+                    </div>
+                    <div class="mr-2 align-self-center">
+                        <button nbButton (click)="AddRectangle()">Add Rectangle</button>
+                    </div>
+                    <div class="mr-2 align-self-center">
+                        <button nbButton (click)="AddTriangle()">Add Triangle</button>
+                    </div>
+                    <div class="mr-2 align-self-center">
+                        <button nbButton (click)="DeleteCustom()">Delete</button>
+                    </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+        <div class="d-flex justify-content-center">
+            <canvas class="canvas-wrapper1" id="custom"></canvas>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+            <button nbButton class="ml-3" (click)="AddCustomElement()">Add to canvas</button>
+            <button nbButton class="mr-3" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

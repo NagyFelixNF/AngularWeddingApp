@@ -9,13 +9,22 @@
 .cardborder
 {
     --card-border-color: #ced4da;
+    --card-margin-bottom: 4px;
 }
 .bigger
 {
     font-size: 2.2rem;
 }
+.bigger2
+{
+    font-size: 3rem;
+}
 .comment
 {
-    --card-border-radius:2rem
+    --card-border-radius:2rem;
+}
+.buttonstyle
+{
+    --button-filled-basic-background-color: white;
 }
 

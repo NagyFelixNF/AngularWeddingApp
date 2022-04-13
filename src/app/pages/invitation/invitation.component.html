@@ -5,6 +5,9 @@
       <div class="col-8">
         <nb-card *ngIf="Invitations.length == 0">
           <nb-card-body class="text-center">
+            <div class="row justify-content-center align-items-center mb-3">
+              <nb-icon class="bigger2" icon="inbox" pack="fa-solid"></nb-icon>
+            </div>
             <p>There are no responses yet!</p>
             <p>This is the inbox, where the invations arrive.</p>
           </nb-card-body>
@@ -61,6 +64,14 @@
 
     <div class="row justify-content-center">
       <div class="col-7">
+
+        <div class="row justify-content-center mb-2">
+        <button class="buttonstyle" shape="round" nbButton (click)="copyURLWedding()">Invitation link for the wedding</button>
+        </div>
+
+        <div class="row justify-content-center mb-2">
+        <h4>Guest List:</h4>
+        </div>
 
         <div *ngFor="let guest of Guests">
           <ng-container *ngIf="!(guest.category == 'Groom' || guest.category == 'Bride')">
