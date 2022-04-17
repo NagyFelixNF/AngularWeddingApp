@@ -8,5 +8,19 @@
 }
 .cardheight
 {
-    height: 350px;
+    height: 400px;
+}
+.container
+{
+    position: relative;
+}
+.bottom
+{
+    position: absolute;
+    bottom: 0;
+    left: 13px;
+}
+.buttonstyle
+{
+    --button-filled-basic-background-color: white;
 }

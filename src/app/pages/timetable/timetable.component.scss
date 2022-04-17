@@ -44,3 +44,15 @@ nb-icon.bigger2
     --card-border-radius:2rem;
     --card-margin-bottom: 10px;
 }
+.iconhide
+{
+    visibility: hidden;
+}
+.cardh:hover .iconhide
+{
+    visibility: visible;
+}
+nb-icon.bigger
+{
+    font-size: 2.5rem;
+}

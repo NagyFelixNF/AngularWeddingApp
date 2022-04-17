@@ -3,5 +3,4 @@ export interface EventTime {
     hour: string;
     minute: string;
     title: string;
-    category: string | undefined;
 }

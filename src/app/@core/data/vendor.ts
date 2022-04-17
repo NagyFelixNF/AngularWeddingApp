@@ -5,6 +5,7 @@ export interface Vendor {
     category: string;
     email: string;
     telnumber: string;
+    editable: boolean;
 }
 export interface VendorPage
 {

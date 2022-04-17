@@ -1,6 +1,8 @@
 import { getTarget } from '@angular/cdk/a11y/input-modality/input-modality-detector';
 import { Component, OnInit } from '@angular/core';
 import { EventTime } from 'app/@core/data/event';
+import { EventService } from 'app/@core/services/event.service';
+import { debounce } from 'lodash';
 
 @Component({
   selector: 'timetable',
@@ -10,10 +12,23 @@ import { EventTime } from 'app/@core/data/event';
 export class TimetableComponent implements OnInit {
 
   Events:EventTime[] = []
+  Regex: RegExp = new RegExp("^[0-9]$");
 
-  constructor() { }
+  constructor(private EventService: EventService) {
+    this.updateEvent = debounce(this.updateEvent,600);
+   }
 
   ngOnInit(): void {
+    this.GetEvents();
+  }
+
+  GetEvents()
+  {
+    this.EventService.GetEvent().subscribe(events =>
+      {
+        events.sort(this.compareEvents);
+        this.Events = events
+      }); 
   }
 
   TimeKeyDown(event:any){
@@ -29,33 +44,40 @@ export class TimetableComponent implements OnInit {
     }
   }
 
-  HourInputKeyUp(event:any)
+  HourInputKeyUp(event:any,eventtime)
   {
-    console.log(parseInt(event.target.value));
     if(event.target.value>23)
     {
-      event.target.value = 23;
+      eventtime.hour = 23;
     }
+    this.updateEvent(eventtime);
   }
 
-  MinuteInputKeyUp(event:any)
+  MinuteInputKeyUp(event:any,eventtime)
   {
     if(event.target.value>59)
     {
-      event.target.value = 59;
+      eventtime.minute = 59;
     }
+    this.updateEvent(eventtime);
   }
 
   addEvent(){
-    var event : EventTime = {
-      'id' : "1",
+    var event = {
       'hour' : "00",
       'minute': "00",
       'title' : "",
-      'category' : ""
     }
-    this.Events.push(event);
-    console.log(this.Events);
+    this.EventService.AddEvent(event).subscribe(event => {
+      this.Events.push(event)
+      this.Events.sort(this.compareEvents);
+    });
+  
+  }
+
+  updateEvent(event)
+  {
+    this.EventService.UpdateEvent(event.id,event);
   }
 
   compareEvents(a:EventTime,b:EventTime) : number
@@ -82,9 +104,30 @@ export class TimetableComponent implements OnInit {
     return 0;
   }
 
-  SortEvents()
+  SortEvents(event)
   {
     this.Events.sort(this.compareEvents);
+    if(event.minute !=null)
+    {
+      if(this.Regex.test(event.minute.toString()))
+      {
+        event.minute = "0" + event.minute.toString();
+      }
+    }
+    if(event.hour !=null)
+    {
+      if(this.Regex.test(event.hour.toString()))
+      {
+        event.hour = "0" + event.hour.toString();
+      }
+    }
+  }
+
+  deleteEvent(event)
+  {
+    console.log(event)
+    this.EventService.DeleteEvent(event.id);
+    this.Events.splice(this.Events.indexOf(event),1);
   }
 
 }

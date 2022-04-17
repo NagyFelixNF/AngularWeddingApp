@@ -4,7 +4,7 @@ import { VendorComponent } from './vendor.component';
 import { FormsModule } from '@angular/forms';
 import { NbAccordionModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbFormFieldModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -23,6 +23,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     NbInputModule,
     NbButtonModule,
     NbFormFieldModule,
+    NgbModalModule,
     NgbCarouselModule,
   ]
 })

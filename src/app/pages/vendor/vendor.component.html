@@ -9,7 +9,60 @@
 
     <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true" interval="3700" [keyboard]="true"
       [pauseOnHover]="true" [wrap]="true">
-      <ng-container *ngFor="let item of vendorpages">
+      <ng-container *ngFor="let item of examplevendorpages">
+      <ng-template ngbSlide >
+        <div class="row justify-content-center p-5">
+          <div class="col-md-3" *ngFor="let vendor of item.vendor">
+
+            <nb-reveal-card class="mb-2" >
+              <nb-card-front>
+                <nb-card class="cardheight text-center">
+                  <nb-card-header>{{vendor.name}}</nb-card-header>
+                  <nb-card-body >
+                    <div class="text-left">
+                    {{vendor.description}}
+                    </div>
+                  </nb-card-body>
+                  <nb-card-footer>
+                    <div class="row justify-content-center mb-1">
+                    <button nbButton (click)="AddExample(vendor)">Add to my vendors</button>
+                    </div>
+                    Category:
+                    <br>{{vendor.category}}
+                  </nb-card-footer>
+                </nb-card>
+              </nb-card-front>
+
+              <nb-card-back>
+                <nb-card class="cardheight text-center">
+                  <nb-card-header>{{vendor.name}}</nb-card-header>
+                  <nb-card-body>
+                    <p>Email:</p>
+                    <p>{{vendor.email}}</p>
+                    <p>Telephone:</p>
+                    <p>{{vendor.telnumber}}</p>
+                  </nb-card-body>
+                  <nb-card-footer>General Information</nb-card-footer>
+                </nb-card>
+              </nb-card-back>
+
+            </nb-reveal-card>
+          </div>
+        </div>
+        
+      </ng-template>
+    </ng-container>
+    </ngb-carousel>
+
+    <div class="row justify-content-center mt-2">
+      <h3>My Vendors:</h3>
+    </div>
+    <div class="row justify-content-center mt-2">
+    <button nbButton class="buttonstyle" shape="round" (click)="open(content)">Add Vendor</button>
+    </div>
+    <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true" [keyboard]="true" interval="1000000000"
+      [pauseOnHover]="true" [wrap]="true">
+      <ng-container *ngFor="let item of customvendorpages">
       <ng-template ngbSlide >
         <div class="row justify-content-center p-5">
           <div class="col-md-3" *ngFor="let vendor of item.vendor">
@@ -47,3 +100,38 @@
     </ngb-carousel>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Vendor</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+      <div class="mb-3">
+        <div class="mb-2">
+          <p class="mb-1">Vendor name:</p>
+          <input nbInput fieldSize="small" placeholder="Name" fullWidth [(ngModel)]="Name">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Category:</p>
+          <input nbInput fieldSize="small" placeholder="Category" fullWidth [(ngModel)]="Category">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Email:</p>
+          <input nbInput fieldSize="small" placeholder="Email" fullWidth [(ngModel)]="Email">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Telephone:</p>
+          <input nbInput fieldSize="small" placeholder="Telephone" fullWidth [(ngModel)]="Tel">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Description:</p>
+          <textarea nbInput fieldSize="small" placeholder="Description" fullWidth [(ngModel)]="Desc"></textarea>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer justify-content-between">
+    <button nbButton class="ml-3" (click)="AddVendor()">Add </button>
+    <button nbButton class="mr-3" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

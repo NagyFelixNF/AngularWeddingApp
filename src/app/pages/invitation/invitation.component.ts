@@ -72,12 +72,12 @@ export class InvitationComponent implements OnInit {
 
   copyURL(id: string)
   {
-    console.log((this.platformLocation as any).location.origin + "/" + this.weddingid);
     this.clipboardApi.copy((this.platformLocation as any).location.origin + "/invite" +"/" + this.weddingid + "/" + id);
   }
+
   copyURLWedding()
   {
-    this.clipboardApi.copy((this.platformLocation as any).location.origin + "/invite" +"/" + this.weddingid);
+    this.clipboardApi.copy((this.platformLocation as any).location.origin + "/invite/" + this.weddingid);
   }
 
   GetInvitation()

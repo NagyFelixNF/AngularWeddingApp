@@ -1,16 +1,9 @@
-import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { setClassMetadata } from '@angular/core/src/r3_symbols';
+import { Component, OnInit } from '@angular/core';
 import { GuestService } from 'app/@core/services/guest.service';
-import { Console } from 'console';
 import { fabric } from 'fabric';
-import { Canvas, Line } from 'fabric/fabric-impl';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { debounce } from 'lodash';
 import { Guest } from 'app/@core/data/guest';
-import { HttpRequest } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ObjectUnsubscribedError } from 'rxjs';
 
 @Component({
   selector: 'seating',
@@ -23,9 +16,11 @@ export class SeatingComponent implements OnInit {
   Number = 1;
   Array: any[] = [];
   showDetails = false;
+
   Seat: any;
   Guests: Guest[]
   GuestValue = null;
+
   customcanvas: any;
   TextColor = '#000000';
   BorderColor = '#000000';
@@ -197,7 +192,7 @@ export class SeatingComponent implements OnInit {
   }
 
 
-  getActive() {
+  Delete() {
     var SeatRender = false;
     if (typeof this.canvas.getActiveObject() !== 'undefined') {
 
@@ -241,7 +236,6 @@ export class SeatingComponent implements OnInit {
       number++;
     });
     this.Number = this.Array.length + 1;
-
   }
 
   set(Seat: any) {
@@ -292,10 +286,8 @@ export class SeatingComponent implements OnInit {
 
     destCtx.drawImage(this.canvas.getElement(), 0, 0);
 
-
     destinationCanvas.toDataURL();
 
-    console.log(e)
     e.href = destinationCanvas.toDataURL();
     e.download = 'canvas.png'
   }

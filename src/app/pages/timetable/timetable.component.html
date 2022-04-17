@@ -4,14 +4,17 @@
       <div class="row justify-content-center">
         <div class="col-8">
             <nb-card class="p-1 cardborder" *ngFor="let event of Events">
-                <nb-card-body class=" d-flex row justify-content-between">
+                <nb-card-body class=" d-flex row cardh">
                     <div class="timeborder pr-4">
-                    <input class="inputf mr-2" placeholder="00" type="number" (keydown)="TimeKeyDown($event)" (keyup)="HourInputKeyUp($event)" [(ngModel)]="event.hour" (blur)="SortEvents()">
+                    <input class="inputf mr-2" placeholder="00" type="number" (keydown)="TimeKeyDown($event)" (keyup)="HourInputKeyUp($event,event)" [(ngModel)]="event.hour" (blur)="SortEvents(event)">
                     <span class="dot">:</span>
-                    <input class="inputf ml-2" placeholder="00" type="number" (keydown)="TimeKeyDown($event)" (keyup)="MinuteInputKeyUp($event)" [(ngModel)]="event.minute" (blur)="SortEvents()">
+                    <input class="inputf ml-2" placeholder="00" type="number"  (keydown)="TimeKeyDown($event)" (keyup)="MinuteInputKeyUp($event,event)" [(ngModel)]="event.minute" (blur)="SortEvents(event)">
                     </div>
                     <div>
-                        <input class="titleinput ml-auto" placeholder="Title" >
+                        <input class="titleinput ml-3" placeholder="Title" (keyup)="updateEvent(event)" [(ngModel)]="event.title" >
+                    </div>
+                    <div class="ml-4 d-flex align-items-center">
+                        <nb-icon icon="trash-can" pack="fa-solid" class="iconhide bigger" (click)="deleteEvent(event)" ></nb-icon>
                     </div>
                 </nb-card-body>
             </nb-card>
