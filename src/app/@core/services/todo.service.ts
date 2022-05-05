@@ -44,7 +44,6 @@ export class TodoService {
 
   getTodos() : Observable<Todo[]>
   {
-
     return this.http.get<Todo[]>(this.url,this.GetHeader()).pipe();
   }
 

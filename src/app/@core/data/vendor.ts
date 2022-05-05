@@ -6,6 +6,7 @@ export interface Vendor {
     email: string;
     telnumber: string;
     editable: boolean;
+    customid?:string;
 }
 export interface VendorPage
 {

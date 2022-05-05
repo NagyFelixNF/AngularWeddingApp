@@ -69,9 +69,14 @@
 
             <nb-reveal-card class="mb-2" >
               <nb-card-front>
-                <nb-card class="cardheight">
-                  <nb-card-header>{{vendor.name}}</nb-card-header>
-                  <nb-card-body>
+                <nb-card class="cardheight text-center">
+                  <nb-card-header class="d-flex row text-center">
+                    <div>
+                    {{vendor.name}}
+                    </div>
+                    
+                  </nb-card-header>
+                  <nb-card-body class="text-left">
                     {{vendor.description}}
                   </nb-card-body>
                   <nb-card-footer>Category:<br>{{vendor.category}}</nb-card-footer>
@@ -80,8 +85,16 @@
 
               <nb-card-back>
                 <nb-card class="cardheight">
-                  <nb-card-header>{{vendor.name}}</nb-card-header>
+                  <nb-card-header>
+                    <div class="d-flex align-items-center">
+                      <nb-icon *ngIf="vendor.editable==true" icon="pen-to-square" pack="fa-solid" class="bigger" (click)="openEdit(edit, vendor)" ></nb-icon>
+                      <nb-icon icon="trash-can" pack="fa-solid" class="ml-auto bigger" (click)="DeleteVendor(vendor)" ></nb-icon>
+                    </div>
+                  </nb-card-header>
                   <nb-card-body>
+                    <div class="text-center">
+                    <p class="font-weight-bold" >{{vendor.name}}</p>
+                    </div>
                     <p>Email:</p>
                     <p>{{vendor.email}}</p>
                     <p>Telephone:</p>
@@ -132,6 +145,41 @@
   </div>
   <div class="modal-footer justify-content-between">
     <button nbButton class="ml-3" (click)="AddVendor()">Add </button>
+    <button nbButton class="mr-3" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #edit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit {{Name}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+      <div class="mb-3">
+        <div class="mb-2">
+          <p class="mb-1">Vendor name:</p>
+          <input nbInput fieldSize="small" placeholder="Name" fullWidth [(ngModel)]="Name">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Category:</p>
+          <input nbInput fieldSize="small" placeholder="Category" fullWidth [(ngModel)]="Category">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Email:</p>
+          <input nbInput fieldSize="small" placeholder="Email" fullWidth [(ngModel)]="Email">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Telephone:</p>
+          <input nbInput fieldSize="small" placeholder="Telephone" fullWidth [(ngModel)]="Tel">
+        </div>
+        <div class="mb-2">
+          <p class="mb-1">Description:</p>
+          <textarea nbInput fieldSize="small" placeholder="Description" fullWidth [(ngModel)]="Desc"></textarea>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer justify-content-between">
+    <button nbButton class="ml-3" (click)="UpdateVendor()">Save</button>
     <button nbButton class="mr-3" (click)="modal.close('Close click')">Close</button>
   </div>
 </ng-template>

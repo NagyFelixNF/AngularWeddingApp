@@ -139,7 +139,6 @@ export class SeatingComponent implements OnInit {
       strokeWidth: 2,
     });
     this.canvas.add(Table)
-
   }
 
   addSeat() {
